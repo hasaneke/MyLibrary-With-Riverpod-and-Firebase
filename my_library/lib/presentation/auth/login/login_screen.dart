@@ -46,7 +46,7 @@ Row welcomeWidget() {
         color: Colors.black,
       ),
       const Text(
-        'Welcome to My Library',
+        'Welcome to My Library Auth',
         style: TextStyle(fontSize: 27),
       ),
       Container(
