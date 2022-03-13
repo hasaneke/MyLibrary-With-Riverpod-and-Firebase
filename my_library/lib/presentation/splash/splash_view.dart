@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:authentication/network/auth_service.dart';
 import 'package:authentication/repository/auth_repository.dart';
 import 'package:auto_route/auto_route.dart';
@@ -49,7 +47,7 @@ class _SplashViewState extends State<SplashView> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     final isLoggedIn = await authRepositry.getCurrentUser();
-    print(isLoggedIn);
+
     if (isLoggedIn == null) {
       AutoRouter.of(context).replace(const LoginScreen());
     } else {
