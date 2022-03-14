@@ -26,7 +26,9 @@ class MyCategory {
       uniqueId: map['unique_id'] ?? '',
       containerCatId: map['container_cat_id'],
       title: map['title'],
-      subCategoriesIds: List<String>.from(map['sub_categories_ids']),
+      subCategoriesIds: map['sub_categories_ids'] != null
+          ? List<String>.from(map['sub_categories_ids'])
+          : [],
     );
   }
 

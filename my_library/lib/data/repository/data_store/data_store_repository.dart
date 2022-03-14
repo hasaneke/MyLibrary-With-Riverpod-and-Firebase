@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:data_service/network/data_service.dart';
 import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/data/models/my_category.dart';
@@ -9,12 +11,12 @@ class DataStoreRepository implements IDataStoreRepository {
 
   @override
   Future<void> addCard({required MyCard myCard}) async {
-    await dataService.addCard(cardJson: myCard.toMap());
+    await dataService.addCard(jsonString: myCard.toJson());
   }
 
   @override
   Future<void> addCategory({required MyCategory myCategory}) async {
-    await dataService.addCategory(categoryJson: myCategory.toMap());
+    await dataService.addCategory(json: myCategory.toJson());
   }
 
   @override
@@ -29,32 +31,32 @@ class DataStoreRepository implements IDataStoreRepository {
 
   @override
   Future<List<MyCard>> fetchCards() async {
-    List<Map<String, dynamic>> jsonDataList = await dataService.fetchCards();
+    List<String> jsonDataList = await dataService.fetchCards();
     List<MyCard> fetchedCards = [];
-    for (var doc in jsonDataList) {
-      fetchedCards.add(MyCard.fromMap(doc));
+    for (var json in jsonDataList) {
+      fetchedCards.add(MyCard.fromJson(json));
     }
+    print(fetchedCards[0]);
     return fetchedCards;
   }
 
   @override
   Future<List<MyCategory>> fetchCategories() async {
-    List<Map<String, dynamic>> jsonDataList =
-        await dataService.fetchCategories();
+    List<String> jsonDataList = await dataService.fetchCategories();
     List<MyCategory> fetchedCategories = [];
-    for (var doc in jsonDataList) {
-      fetchedCategories.add(MyCategory.fromMap(doc));
+    for (var json in jsonDataList) {
+      fetchedCategories.add(MyCategory.fromJson(json));
     }
     return fetchedCategories;
   }
 
   @override
   Future<void> updateCard({required MyCard myCard}) async {
-    await dataService.updateCard(cardJson: myCard.toMap());
+    await dataService.updateCard(json: myCard.toJson());
   }
 
   @override
   Future<void> updateCategory({required MyCategory myCategory}) async {
-    await dataService.updateCategory(categoryJson: myCategory.toMap());
+    await dataService.updateCategory(json: myCategory.toJson());
   }
 }

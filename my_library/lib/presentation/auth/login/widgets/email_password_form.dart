@@ -88,11 +88,8 @@ class EmailPasswordForm extends HookConsumerWidget {
                               email: 'hasaneke1000@gmail.com',
                               password: '6145450fb');
                       if (ref.read(authStateProvider) != null) {
-                        log('?');
                         AutoRouter.of(context).replace(const TabScreen());
-                      } else {
-                        log('wtf');
-                      }
+                      } else {}
                     },
                     child: const Text(
                       'Sign in',

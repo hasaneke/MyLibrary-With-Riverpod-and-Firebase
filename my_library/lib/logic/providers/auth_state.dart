@@ -16,13 +16,12 @@ final authStateProvider =
   return AuthStateProvider(ref.read);
 });
 
-final authExceptionProvider = StateProvider.autoDispose<AuthException?>((ref) {
+final authExceptionProvider = StateProvider<AuthException?>((ref) {
   return null;
 });
 
 class AuthStateProvider extends StateNotifier<User?> {
   AuthStateProvider(this.read, [User? user]) : super(null) {
-    log('curent ');
     getCurrentUser();
   }
   final Reader read;
@@ -56,8 +55,6 @@ class AuthStateProvider extends StateNotifier<User?> {
     try {
       state = await read(authRepositoryProvider)
           .signInWithEmailAndPassword(email: email, password: password);
-
-      log('? should gance');
     } on FirebaseAuthException catch (e) {
       _handleError(AuthException(code: e.code));
     } on PlatformException catch (e) {

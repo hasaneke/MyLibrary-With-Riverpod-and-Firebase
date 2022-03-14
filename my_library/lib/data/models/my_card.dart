@@ -30,7 +30,8 @@ class MyCard {
       shortExp: map['short_Exp'],
       longExp: map['long_exp'],
       isFavorite: map['is_favorite'],
-      imageUrls: List<String>.from(map['image_urls']),
+      imageUrls:
+          map['image_urls'] != null ? List<String>.from(map['image_urls']) : [],
     );
   }
   Map<String, dynamic> toMap() {

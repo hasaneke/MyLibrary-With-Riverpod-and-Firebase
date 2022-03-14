@@ -1,55 +1,60 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart' as fire_store;
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class IDataService {
-  void initService() {}
+  void initService(String userId) {}
+  void disposeService() {}
   /* MY CATEGORY OPERATIONS */
-  Future<List<Map<String, dynamic>>> fetchCategories() async {
-    return [{}];
+  Future<List<String>> fetchCategories() async {
+    return [];
   }
 
-  Future<void> addCategory(
-      {required Map<String, dynamic> categoryJson}) async {}
+  Future<void> addCategory({required String json}) async {}
   Future<void> deleteCategory({required String id}) async {}
-  Future<void> updateCategory(
-      {required Map<String, dynamic> categoryJson}) async {}
+  Future<void> updateCategory({required String json}) async {}
 
   /* MY CARD OPERATIONS */
-  Future<List<Map<String, dynamic>>> fetchCards() async {
-    return [{}];
+  Future<List<String>> fetchCards() async {
+    return [];
   }
 
-  Future<void> addCard({required Map<String, dynamic> cardJson}) async {}
+  Future<void> addCard({required String jsonString}) async {}
   Future<void> deleteCard({required String id}) async {}
-  Future<void> updateCard({required Map<String, dynamic> cardJson}) async {}
+  Future<void> updateCard({required String json}) async {}
 }
 
 class DataService implements IDataService {
-  User user;
-  DataService({required this.user});
   String _pathToCategories = '';
   String _pathToCards = '';
 
   @override
-  void initService() {
-    _pathToCards = '/users/' + user.uid + '/cards/';
-    _pathToCategories = '/users/' + user.uid + '/categories/';
+  void initService(String userId) {
+    _pathToCategories = 'users/' + userId + '/categories/';
+    _pathToCards = 'users/' + userId + '/cards/';
   }
 
   @override
-  Future<void> addCard({required Map<String, dynamic> cardJson}) async {
+  void disposeService() {}
+
+  @override
+  Future<void> addCard({required String jsonString}) async {
+    Map<String, dynamic> decodedJson = jsonDecode(jsonString);
     await fire_store.FirebaseFirestore.instance
         .collection(_pathToCards)
-        .doc(cardJson['unique_id'])
-        .set(cardJson);
+        .doc(decodedJson['unique_id'])
+        .set(decodedJson);
   }
 
   @override
-  Future<void> addCategory({required Map<String, dynamic> categoryJson}) async {
+  Future<void> addCategory({required String json}) async {
+    final Map<String, dynamic> category = jsonDecode(json);
     await fire_store.FirebaseFirestore.instance
         .collection(_pathToCategories)
-        .doc(categoryJson['unique_id'])
-        .set(categoryJson);
+        .doc(category['unique_id'])
+        .set(category);
   }
 
   @override
@@ -69,42 +74,45 @@ class DataService implements IDataService {
   }
 
   @override
-  Future<void> updateCategory(
-      {required Map<String, dynamic> categoryJson}) async {
+  Future<void> updateCategory({required String json}) async {
+    final Map<String, dynamic> category = jsonDecode(json);
     await fire_store.FirebaseFirestore.instance
         .collection(_pathToCategories)
-        .doc(categoryJson['unique_id'])
-        .update(categoryJson);
+        .doc(category['unique_id'])
+        .update(jsonDecode(json));
   }
 
   @override
-  Future<void> updateCard({required Map<String, dynamic> cardJson}) async {
+  Future<void> updateCard({required String json}) async {
+    final Map<String, dynamic> card = jsonDecode(json);
     await fire_store.FirebaseFirestore.instance
         .collection(_pathToCards)
-        .doc(cardJson['unique_id'])
-        .update(cardJson);
+        .doc(card['unique_id'])
+        .update(jsonDecode(json));
   }
 
   @override
-  Future<List<Map<String, dynamic>>> fetchCards() async {
-    List<Map<String, dynamic>> cardsJsonList = [{}];
+  Future<List<String>> fetchCards() async {
+    List<String> cardsJsonList = [];
+    log('??');
     final querySnapshot = await fire_store.FirebaseFirestore.instance
         .collection(_pathToCards)
         .get();
+
     for (var doc in querySnapshot.docs) {
-      cardsJsonList.add(doc.data());
+      cardsJsonList.add(jsonEncode(doc.data()));
     }
     return cardsJsonList;
   }
 
   @override
-  Future<List<Map<String, dynamic>>> fetchCategories() async {
-    List<Map<String, dynamic>> categoriesJsonList = [{}];
+  Future<List<String>> fetchCategories() async {
+    List<String> categoriesJsonList = [];
     final querySnapshot = await fire_store.FirebaseFirestore.instance
-        .collection(_pathToCards)
+        .collection(_pathToCategories)
         .get();
     for (var doc in querySnapshot.docs) {
-      categoriesJsonList.add(doc.data());
+      categoriesJsonList.add(jsonEncode(doc.data()));
     }
     return categoriesJsonList;
   }
