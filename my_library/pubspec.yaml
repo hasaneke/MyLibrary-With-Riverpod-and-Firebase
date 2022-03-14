@@ -38,6 +38,8 @@ dependencies:
   hooks_riverpod: ^1.0.3
   authentication:
     path: ./packages/firebase_authentication
+  data_service:
+    path: ./packages/firebase_firestore
 
 dev_dependencies:
   auto_route_generator: ^3.2.3
