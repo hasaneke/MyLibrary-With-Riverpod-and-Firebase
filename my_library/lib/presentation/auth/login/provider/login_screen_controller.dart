@@ -20,7 +20,6 @@ class LoginScreenController extends StateNotifier<bool> {
   Future<void> signInWithEmailAndPassword(
       {required String email, required String password}) async {
     read(isEmailSignIn.notifier).state = true;
-
     await read(authStateProvider.notifier)
         .signInWithEmailAndPassword(email: email, password: password);
     if (read(authStateProvider) == null) {
@@ -31,8 +30,8 @@ class LoginScreenController extends StateNotifier<bool> {
   Future<void> signInWithGoogle() async {
     read(isGoogleSignIn.notifier).state = true;
     await read(authStateProvider.notifier).signInWithGoogle();
-    if (read(authStateProvider) != null) {
-      read(isEmailSignIn.notifier).state = false;
+    if (read(authStateProvider) == null) {
+      read(isGoogleSignIn.notifier).state = false;
     }
   }
 }
