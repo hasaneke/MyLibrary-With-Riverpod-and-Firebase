@@ -46,12 +46,14 @@ class _SplashViewState extends State<SplashView> {
     final authRepositry = AuthRepository(authService: AuthService());
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    final isLoggedIn = await authRepositry.getCurrentUser();
+    final user = await authRepositry.getCurrentUser();
 
-    if (isLoggedIn == null) {
+    if (user == null) {
       AutoRouter.of(context).replace(const LoginScreen());
     } else {
-      AutoRouter.of(context).replace(const TabScreen());
+      AutoRouter.of(context).replace(user.emailVerified
+          ? const TabScreen()
+          : const EmailVertificationLobbyScreen());
     }
   }
 }
