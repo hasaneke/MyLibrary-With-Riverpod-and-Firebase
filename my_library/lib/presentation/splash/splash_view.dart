@@ -1,9 +1,9 @@
 import 'package:authentication/network/auth_service.dart';
-import 'package:authentication/repository/auth_repository.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_library/data/repository/auth/auth_repository.dart';
 import 'package:my_library/logic/navigation/route.gr.dart';
 
 class SplashView extends StatefulWidget {

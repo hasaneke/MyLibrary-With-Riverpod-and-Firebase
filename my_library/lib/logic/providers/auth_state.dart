@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:authentication/exceptions/auth_exception.dart';
-import 'package:authentication/repository/auth_repository.dart';
+import 'package:my_library/data/repository/auth/auth_repository.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepository(authService: AuthService());

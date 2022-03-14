@@ -27,19 +27,20 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  authentication:
+    path: ./packages/firebase_authentication
   auto_route: ^3.2.4
   cloud_firestore: ^3.1.10
   cupertino_icons: ^1.0.2
+  data_service:
+    path: ./packages/firebase_firestore
   firebase_core: ^1.13.1
+  firebase_firestore: ^0.0.3+1
   firebase_storage: ^10.2.9
   flutter:
     sdk: flutter
   getwidget: ^2.0.5
   hooks_riverpod: ^1.0.3
-  authentication:
-    path: ./packages/firebase_authentication
-  data_service:
-    path: ./packages/firebase_firestore
 
 dev_dependencies:
   auto_route_generator: ^3.2.3
