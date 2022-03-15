@@ -52,9 +52,7 @@ class _SplashView2State extends ConsumerState<SplashView> {
     if (user == null) {
       AutoRouter.of(context).replace(const LoginScreen());
     } else {
-      if (user.emailVerified) {
-        AutoRouter.of(context).replace(const TabScreen());
-      } else {}
+      AutoRouter.of(context).replace(const TabScreen());
     }
   }
 }

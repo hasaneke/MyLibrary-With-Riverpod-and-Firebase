@@ -36,7 +36,6 @@ class DataStoreRepository implements IDataStoreRepository {
     for (var json in jsonDataList) {
       fetchedCards.add(MyCard.fromJson(json));
     }
-    print(fetchedCards[0]);
     return fetchedCards;
   }
 
