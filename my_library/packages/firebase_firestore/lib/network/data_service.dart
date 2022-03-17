@@ -94,7 +94,6 @@ class DataService implements IDataService {
   @override
   Future<List<String>> fetchCards() async {
     List<String> cardsJsonList = [];
-    log('??');
     final querySnapshot = await fire_store.FirebaseFirestore.instance
         .collection(_pathToCards)
         .get();

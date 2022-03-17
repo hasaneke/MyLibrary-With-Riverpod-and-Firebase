@@ -40,6 +40,7 @@ dependencies:
     sdk: flutter
   getwidget: ^2.0.5
   hooks_riverpod: ^1.0.3
+  uuid: ^3.0.6
 
 dev_dependencies:
   auto_route_generator: ^3.2.3
