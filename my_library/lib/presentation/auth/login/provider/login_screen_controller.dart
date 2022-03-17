@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/logic/providers/auth_state.dart';
+import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
 
 final loginScreenController =
     StateNotifierProvider.autoDispose<LoginScreenController, bool>((ref) {
@@ -20,17 +20,17 @@ class LoginScreenController extends StateNotifier<bool> {
   Future<void> signInWithEmailAndPassword(
       {required String email, required String password}) async {
     read(isEmailSignIn.notifier).state = true;
-    await read(authStateProvider.notifier)
+    await read(authNotifier.notifier)
         .signInWithEmailAndPassword(email: email, password: password);
-    if (read(authStateProvider) == null) {
+    if (read(authNotifier) == null) {
       read(isEmailSignIn.notifier).state = false;
     }
   }
 
   Future<void> signInWithGoogle() async {
     read(isGoogleSignIn.notifier).state = true;
-    await read(authStateProvider.notifier).signInWithGoogle();
-    if (read(authStateProvider) == null) {
+    await read(authNotifier.notifier).signInWithGoogle();
+    if (read(authNotifier) == null) {
       read(isGoogleSignIn.notifier).state = false;
     }
   }

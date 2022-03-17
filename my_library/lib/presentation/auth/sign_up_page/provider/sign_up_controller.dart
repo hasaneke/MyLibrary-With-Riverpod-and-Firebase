@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/logic/providers/auth_state.dart';
+import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
 
 final isSigningUp = StateProvider<bool>((ref) {
   return false;
@@ -15,10 +15,10 @@ class SignUpController extends StateNotifier {
   SignUpController(this.read, [state]) : super(state);
   Future<void> signUp({required String email, required String password}) async {
     read(isSigningUp.notifier).state = true;
-    await read(authStateProvider.notifier)
+    await read(authNotifier.notifier)
         .signUpWithEmailAndPassword(email: email, password: password);
 
-    if (read(authStateProvider) == null) {
+    if (read(authNotifier) == null) {
       read(isSigningUp.notifier).state = false;
     }
   }

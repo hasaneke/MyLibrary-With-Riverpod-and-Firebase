@@ -4,12 +4,14 @@ class MyCategory {
   String uniqueId;
   String? containerCatId;
   String? title;
-  List<String>? subCategoriesIds;
+  int? colorCode;
+  //List<String>? subCategoriesIds;
   MyCategory({
     required this.uniqueId,
     this.containerCatId,
     this.title,
-    this.subCategoriesIds,
+    this.colorCode,
+    //this.subCategoriesIds,
   });
 
   Map<String, dynamic> toMap() {
@@ -17,7 +19,8 @@ class MyCategory {
       'unique_id': uniqueId,
       'container_cat_id': containerCatId,
       'title': title,
-      'sub_categories_ids': subCategoriesIds,
+      'color_code': colorCode
+      //'sub_categories_ids': subCategoriesIds,
     };
   }
 
@@ -26,7 +29,10 @@ class MyCategory {
       uniqueId: map['unique_id'] ?? '',
       containerCatId: map['container_cat_id'],
       title: map['title'],
-      subCategoriesIds: List<String>.from(map['sub_categories_ids']),
+      colorCode: map['color_code'],
+      // subCategoriesIds: map['sub_categories_ids'] != null
+      //     ? List<String>.from(map['sub_categories_ids'])
+      //     : [],
     );
   }
 

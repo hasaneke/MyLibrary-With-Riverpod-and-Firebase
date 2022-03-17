@@ -5,24 +5,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:authentication/exceptions/auth_exception.dart';
-import 'package:authentication/repository/auth_repository.dart';
+import 'package:my_library/data/repository/auth/auth_repository.dart';
+import 'package:my_library/logic/providers/state_providers/expection_providers.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepository(authService: AuthService());
 });
 
-final authStateProvider =
-    StateNotifierProvider<AuthStateProvider, User?>((ref) {
-  return AuthStateProvider(ref.read);
+final authNotifier = StateNotifierProvider<AuthNotifier, User?>((ref) {
+  return AuthNotifier(ref.read);
 });
 
-final authExceptionProvider = StateProvider.autoDispose<AuthException?>((ref) {
-  return null;
-});
-
-class AuthStateProvider extends StateNotifier<User?> {
-  AuthStateProvider(this.read, [User? user]) : super(null) {
-    log('curent ');
+class AuthNotifier extends StateNotifier<User?> {
+  AuthNotifier(this.read, [User? user]) : super(null) {
     getCurrentUser();
   }
   final Reader read;
@@ -56,8 +51,6 @@ class AuthStateProvider extends StateNotifier<User?> {
     try {
       state = await read(authRepositoryProvider)
           .signInWithEmailAndPassword(email: email, password: password);
-
-      log('? should gance');
     } on FirebaseAuthException catch (e) {
       _handleError(AuthException(code: e.code));
     } on PlatformException catch (e) {

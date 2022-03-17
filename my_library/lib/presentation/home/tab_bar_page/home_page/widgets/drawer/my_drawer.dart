@@ -61,7 +61,7 @@ class MyDrawer extends HookConsumerWidget {
             await ref
                 .read(myDrawerController.notifier)
                 .onSelectedOption(option: option, context: context);
-            AutoRouter.of(context).navigate(const LoginScreen());
+            AutoRouter.of(context).replace(const LoginScreen());
         }
       },
     );

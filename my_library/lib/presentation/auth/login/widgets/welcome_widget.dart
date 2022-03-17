@@ -16,7 +16,7 @@ class WelcomeWidget extends StatelessWidget {
           color: Colors.black,
         ),
         const Text(
-          'Welcome to My Library Auth',
+          'Welcome to My Library',
           style: TextStyle(fontSize: 27),
         ),
         Container(
