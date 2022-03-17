@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:my_library/data/models/my_category.dart';
+import 'package:my_library/logic/navigation/route.gr.dart';
 
 // ignore: must_be_immutable
 class MyCategoryItem extends StatelessWidget {
@@ -10,11 +12,17 @@ class MyCategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {},
+      onTap: () async {
+        AutoRouter.of(context).push(
+          CategoryDetailScreen(containerCatId: myCategory.uniqueId),
+        );
+      },
       child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: Color(myCategory.colorCode!)),
+              color: myCategory.colorCode == null
+                  ? Colors.red
+                  : Color(myCategory.colorCode!)),
           child: Center(
             child: Text(
               myCategory.title!,

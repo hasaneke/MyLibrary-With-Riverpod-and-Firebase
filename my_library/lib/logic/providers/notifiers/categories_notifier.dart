@@ -15,8 +15,9 @@ final dataStoreRepository =
   dataService.initService(ref.read(authNotifier)!.uid);
   return DataStoreRepository(dataService: dataService);
 });
-final categoriesNotifier = StateNotifierProvider.autoDispose<CategoriesNotifier,
-    AsyncValue<List<MyCategory>>>((ref) {
+final categoriesNotifier =
+    StateNotifierProvider<CategoriesNotifier, AsyncValue<List<MyCategory>>>(
+        (ref) {
   return CategoriesNotifier(ref.read);
 });
 
@@ -28,6 +29,7 @@ class CategoriesNotifier extends StateNotifier<AsyncValue<List<MyCategory>>> {
   Reader read;
   Future<void> fetchCategories() async {
     try {
+      log('what is happening');
       state = AsyncData(await read(dataStoreRepository).fetchCategories());
     } on Exception catch (e) {
       read(dataExceptionProvider.notifier).state =
@@ -70,5 +72,11 @@ class CategoriesNotifier extends StateNotifier<AsyncValue<List<MyCategory>>> {
       read(dataExceptionProvider.notifier).state =
           DataException(message: e.toString());
     }
+  }
+
+  @override
+  void dispose() {
+    log('disposed');
+    super.dispose();
   }
 }

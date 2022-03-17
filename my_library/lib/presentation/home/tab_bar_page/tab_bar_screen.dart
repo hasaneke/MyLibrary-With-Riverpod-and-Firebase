@@ -23,7 +23,6 @@ class TabScreen extends HookConsumerWidget {
             body: Center(child: Text('Something happend!')),
           );
         }, loading: () {
-          log('loading');
           return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(

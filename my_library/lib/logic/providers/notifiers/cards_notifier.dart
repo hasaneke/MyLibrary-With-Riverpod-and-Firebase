@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:data_service/exceptions/data_exception.dart';
 import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
@@ -5,8 +8,7 @@ import 'package:my_library/logic/providers/state_providers/expection_providers.d
 import 'package:riverpod/riverpod.dart';
 
 final cardsNotifier =
-    StateNotifierProvider.autoDispose<CardsNotifier, AsyncValue<List<MyCard>>>(
-        (ref) {
+    StateNotifierProvider<CardsNotifier, AsyncValue<List<MyCard>>>((ref) {
   return CardsNotifier(ref.read);
 });
 
@@ -21,8 +23,10 @@ class CardsNotifier extends StateNotifier<AsyncValue<List<MyCard>>> {
   Future<void> fetchCards() async {
     try {
       List<MyCard> cards = await read(dataStoreRepository).fetchCards();
+      log('getch');
       state = AsyncValue.data(cards);
     } on Exception catch (e) {
+      state = AsyncError(e);
       read(dataExceptionProvider.notifier).state =
           DataException(message: e.toString());
     }
