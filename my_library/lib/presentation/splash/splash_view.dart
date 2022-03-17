@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_library/logic/navigation/route.gr.dart';
-import 'package:my_library/logic/providers/auth_state.dart';
-import 'package:my_library/logic/providers/categories_notifier.dart';
+import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
+import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
 
 class SplashView extends StatefulHookConsumerWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -46,8 +46,8 @@ class _SplashView2State extends ConsumerState<SplashView> {
     await Firebase.initializeApp();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    await ref.read(authStateProvider.notifier).getCurrentUser();
-    final user = ref.read(authStateProvider);
+    await ref.read(authNotifier.notifier).getCurrentUser();
+    final user = ref.read(authNotifier);
 
     if (user == null) {
       AutoRouter.of(context).replace(const LoginScreen());

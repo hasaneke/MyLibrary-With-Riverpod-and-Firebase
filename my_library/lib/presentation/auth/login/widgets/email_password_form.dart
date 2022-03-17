@@ -4,7 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_library/logic/navigation/route.gr.dart';
-import 'package:my_library/logic/providers/auth_state.dart';
+import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
 
 import '../provider/login_screen_controller.dart';
 
@@ -87,7 +87,7 @@ class EmailPasswordForm extends HookConsumerWidget {
                           .signInWithEmailAndPassword(
                               email: 'hasaneke1000@gmail.com',
                               password: '6145450fb');
-                      if (ref.read(authStateProvider) != null) {
+                      if (ref.read(authNotifier) != null) {
                         AutoRouter.of(context).replace(const TabScreen());
                       } else {}
                     },

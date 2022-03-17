@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:my_library/logic/providers/categories_notifier.dart';
+import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
 import 'package:my_library/presentation/home/tab_bar_page/all_cards_page/all_cards_screen.dart';
 import 'package:my_library/presentation/home/tab_bar_page/home_page/home_screen.dart';
 import 'package:my_library/presentation/home/tab_bar_page/marked_cards_page/marked_screen.dart';

@@ -1,6 +1,4 @@
-import 'dart:developer';
-
-import 'package:data_service/network/data_service.dart';
+import 'package:data_service/network/firestore_service.dart';
 import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/data/models/my_category.dart';
 import 'package:my_library/data/repository/data_store/data_store_repo_impl.dart';

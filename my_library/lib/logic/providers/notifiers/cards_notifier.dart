@@ -1,23 +1,9 @@
-import 'dart:developer';
-
+import 'package:data_service/exceptions/data_exception.dart';
 import 'package:my_library/data/models/my_card.dart';
-import 'package:my_library/logic/providers/categories_notifier.dart';
+import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
+import 'package:my_library/logic/providers/state_providers/expection_providers.dart';
 import 'package:riverpod/riverpod.dart';
 
-final favoriteCardsProvider = Provider.autoDispose<List<MyCard>>((ref) {
-  List<MyCard> favoriteCards = ref
-      .watch(allCardsProvider)
-      .where((card) => card.isFavorite == true)
-      .toList();
-  return favoriteCards;
-});
-final allCardsProvider = Provider.autoDispose<List<MyCard>>((ref) {
-  List<MyCard> allCards = [];
-  ref.watch(cardsNotifier).whenData((cards) {
-    allCards = cards;
-  });
-  return allCards;
-});
 final cardsNotifier =
     StateNotifierProvider.autoDispose<CardsNotifier, AsyncValue<List<MyCard>>>(
         (ref) {
@@ -37,7 +23,8 @@ class CardsNotifier extends StateNotifier<AsyncValue<List<MyCard>>> {
       List<MyCard> cards = await read(dataStoreRepository).fetchCards();
       state = AsyncValue.data(cards);
     } on Exception catch (e) {
-      log(e.toString());
+      read(dataExceptionProvider.notifier).state =
+          DataException(message: e.toString());
     }
   }
 
@@ -46,7 +33,8 @@ class CardsNotifier extends StateNotifier<AsyncValue<List<MyCard>>> {
       await read(dataStoreRepository).addCard(myCard: myCard);
       state = state.whenData((cards) => [...cards, myCard]);
     } on Exception catch (e) {
-      log(e.toString());
+      read(dataExceptionProvider.notifier).state =
+          DataException(message: e.toString());
     }
   }
 
@@ -60,7 +48,8 @@ class CardsNotifier extends StateNotifier<AsyncValue<List<MyCard>>> {
             return card;
           }).toList());
     } on Exception catch (e) {
-      log(e.toString());
+      read(dataExceptionProvider.notifier).state =
+          DataException(message: e.toString());
     }
   }
 
@@ -70,7 +59,8 @@ class CardsNotifier extends StateNotifier<AsyncValue<List<MyCard>>> {
       state = state.whenData(
           (cards) => cards.where((element) => element.id != id).toList());
     } on Exception catch (e) {
-      log(e.toString());
+      read(dataExceptionProvider.notifier).state =
+          DataException(message: e.toString());
     }
   }
 }

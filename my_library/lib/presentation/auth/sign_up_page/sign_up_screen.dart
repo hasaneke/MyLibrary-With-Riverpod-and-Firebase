@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/logic/providers/auth_state.dart';
+import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
 import 'package:my_library/presentation/auth/sign_up_page/provider/sign_up_controller.dart';
 
 // ignore: use_key_in_widget_constructors
@@ -103,7 +103,7 @@ class SignUpScreen extends HookConsumerWidget {
                                     .signUp(
                                         email: 'hasaneke1000@gmail.com',
                                         password: '6145450fb');
-                                if (ref.read(authStateProvider) != null) {
+                                if (ref.read(authNotifier) != null) {
                                   log('Sign up succesfull');
                                 } else {
                                   log('what happened?');

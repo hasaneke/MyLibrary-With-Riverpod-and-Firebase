@@ -6,22 +6,18 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:authentication/exceptions/auth_exception.dart';
 import 'package:my_library/data/repository/auth/auth_repository.dart';
+import 'package:my_library/logic/providers/state_providers/expection_providers.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepository(authService: AuthService());
 });
 
-final authStateProvider =
-    StateNotifierProvider<AuthStateProvider, User?>((ref) {
-  return AuthStateProvider(ref.read);
+final authNotifier = StateNotifierProvider<AuthNotifier, User?>((ref) {
+  return AuthNotifier(ref.read);
 });
 
-final authExceptionProvider = StateProvider<AuthException?>((ref) {
-  return null;
-});
-
-class AuthStateProvider extends StateNotifier<User?> {
-  AuthStateProvider(this.read, [User? user]) : super(null) {
+class AuthNotifier extends StateNotifier<User?> {
+  AuthNotifier(this.read, [User? user]) : super(null) {
     getCurrentUser();
   }
   final Reader read;

@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_library/logic/navigation/route.gr.dart';
-import 'package:my_library/logic/providers/auth_state.dart';
+import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
 
 class GoogleButton extends HookConsumerWidget {
   const GoogleButton({Key? key}) : super(key: key);
@@ -14,8 +14,8 @@ class GoogleButton extends HookConsumerWidget {
         height: 60,
         color: Colors.lime[50],
         onPressed: () async {
-          await ref.read(authStateProvider.notifier).signInWithGoogle();
-          if (ref.read(authStateProvider) != null) {
+          await ref.read(authNotifier.notifier).signInWithGoogle();
+          if (ref.read(authNotifier) != null) {
             AutoRouter.of(context).replace(const TabScreen());
           }
         },
