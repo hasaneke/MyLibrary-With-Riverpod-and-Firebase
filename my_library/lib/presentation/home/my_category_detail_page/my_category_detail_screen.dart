@@ -2,46 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/data/models/my_category.dart';
-import 'package:my_library/logic/providers/notifiers/cards_notifier.dart';
 import 'package:my_library/logic/providers/state_providers/data_providers.dart';
 import 'package:my_library/presentation/widgets/my_card_item.dart';
 
 import '../../widgets/my_category_gridview.dart';
+import 'components/app_bar/category_detail_appbar.dart';
 
 // ignore: use_key_in_widget_constructors, must_be_immutable
 class CategoryDetailScreen extends HookConsumerWidget {
-  String? containerCatId;
-  CategoryDetailScreen({Key? key, this.containerCatId}) : super(key: key);
+  MyCategory myCategory;
+  CategoryDetailScreen({Key? key, required this.myCategory}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final myCards = ref
         .read(allCardsProvider)
-        .where((card) => card.containerCatId == containerCatId)
+        .where((card) => card.containerCatId == myCategory.uniqueId)
         .toList();
     final subCategories = ref
         .read(allCategoriesProvider)
-        .where((element) => element.containerCatId == containerCatId)
+        .where((element) => element.containerCatId == myCategory.uniqueId)
         .toList();
     return Scaffold(
-      appBar: AppBar(
-        foregroundColor: Colors.black,
-        elevation: 0,
-        backgroundColor: Colors.lime[50],
-        actions: [
-          IconButton(
-            onPressed: () => {},
-            icon: const Icon(
-              Icons.add_to_photos_outlined,
-              //color: context.theme.iconTheme.color,
-              size: 30,
-            ),
-          ),
-        ],
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            //CategoryDetailAppbar(myCategory),
+            CategoryDetailAppbar(myCategory),
             (myCards.isEmpty && subCategories.isEmpty)
                 ? SizedBox(
                     height: MediaQuery.of(context).size.height,
@@ -57,7 +42,8 @@ class CategoryDetailScreen extends HookConsumerWidget {
                           final myCards = ref
                               .watch(allCardsProvider)
                               .where((card) =>
-                                  card.containerCatId == containerCatId)
+                                  card.containerCatId ==
+                                  myCategory.containerCatId)
                               .toList();
                           return cardListView(myCards);
                         },
@@ -68,12 +54,12 @@ class CategoryDetailScreen extends HookConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        // backgroundColor:
-        //     context.theme.floatingActionButtonTheme.backgroundColor,
+        backgroundColor:
+            Theme.of(context).floatingActionButtonTheme.backgroundColor,
         child: const Icon(Icons.add, color: Colors.black),
         onPressed: () {
-          ref.read(cardsNotifier.notifier).addCard(
-              myCard: MyCard(id: 'id1', containerCatId: containerCatId!));
+          // ref.read(cardsNotifier.notifier).addCard(
+          //     myCard: MyCard(id: 'id2', containerCatId: containerCatId!));
         },
       ),
     );
@@ -102,7 +88,7 @@ class CategoryDetailScreen extends HookConsumerWidget {
                   border: Border.all(color: Colors.black54, width: 2)),
               child: Column(
                 children: [
-                  MyCategoryGridView(containerCatId: containerCatId),
+                  MyCategoryGridView(containerCatId: myCategory.uniqueId),
                   IconButton(
                       onPressed: () => {},
                       icon: const Icon(

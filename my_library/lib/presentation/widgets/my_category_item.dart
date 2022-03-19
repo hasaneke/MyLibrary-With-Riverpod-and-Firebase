@@ -13,9 +13,8 @@ class MyCategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        AutoRouter.of(context).push(
-          CategoryDetailScreen(containerCatId: myCategory.uniqueId),
-        );
+        AutoRouter.of(context)
+            .push(CategoryDetailScreen(myCategory: myCategory));
       },
       child: Container(
           decoration: BoxDecoration(

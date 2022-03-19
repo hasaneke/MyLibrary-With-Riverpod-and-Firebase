@@ -23,7 +23,9 @@ class MyDrawerController extends StateNotifier {
         read(cardsNotifier.notifier).mounted
             ? null
             : read(cardsNotifier.notifier).dispose();
-        read(categoriesNotifier.notifier).dispose();
+        read(categoriesNotifier.notifier).mounted
+            ? null
+            : read(cardsNotifier.notifier).dispose();
         await read(authNotifier.notifier).logOut();
     }
   }

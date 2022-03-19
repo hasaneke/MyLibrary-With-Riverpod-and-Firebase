@@ -13,6 +13,7 @@
 import 'package:auto_route/auto_route.dart' as _i7;
 import 'package:flutter/material.dart' as _i8;
 
+import '../../data/models/my_category.dart' as _i9;
 import '../../presentation/auth/login/login_screen.dart' as _i3;
 import '../../presentation/auth/reset_password_page/reset_password_screen.dart'
     as _i5;
@@ -49,12 +50,11 @@ class AppRouter extends _i7.RootStackRouter {
           routeData: routeData, child: const _i5.PasswordResetScreen());
     },
     CategoryDetailScreen.name: (routeData) {
-      final args = routeData.argsAs<CategoryDetailScreenArgs>(
-          orElse: () => const CategoryDetailScreenArgs());
+      final args = routeData.argsAs<CategoryDetailScreenArgs>();
       return _i7.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i6.CategoryDetailScreen(
-              key: args.key, containerCatId: args.containerCatId));
+              key: args.key, myCategory: args.myCategory));
     }
   };
 
@@ -115,24 +115,23 @@ class PasswordResetScreen extends _i7.PageRouteInfo<void> {
 /// generated route for
 /// [_i6.CategoryDetailScreen]
 class CategoryDetailScreen extends _i7.PageRouteInfo<CategoryDetailScreenArgs> {
-  CategoryDetailScreen({_i8.Key? key, String? containerCatId})
+  CategoryDetailScreen({_i8.Key? key, required _i9.MyCategory myCategory})
       : super(CategoryDetailScreen.name,
             path: '/category-detail-screen',
-            args: CategoryDetailScreenArgs(
-                key: key, containerCatId: containerCatId));
+            args: CategoryDetailScreenArgs(key: key, myCategory: myCategory));
 
   static const String name = 'CategoryDetailScreen';
 }
 
 class CategoryDetailScreenArgs {
-  const CategoryDetailScreenArgs({this.key, this.containerCatId});
+  const CategoryDetailScreenArgs({this.key, required this.myCategory});
 
   final _i8.Key? key;
 
-  final String? containerCatId;
+  final _i9.MyCategory myCategory;
 
   @override
   String toString() {
-    return 'CategoryDetailScreenArgs{key: $key, containerCatId: $containerCatId}';
+    return 'CategoryDetailScreenArgs{key: $key, myCategory: $myCategory}';
   }
 }

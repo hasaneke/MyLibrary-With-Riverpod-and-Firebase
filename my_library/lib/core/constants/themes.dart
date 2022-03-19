@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class Themes {
   static final limetheme = ThemeData(
+    appBarTheme: AppBarTheme(backgroundColor: Colors.lime[50]),
     popupMenuTheme: PopupMenuThemeData(
         textStyle: const TextStyle(color: Colors.black, fontSize: 15),
         color: Colors.lime[50]),

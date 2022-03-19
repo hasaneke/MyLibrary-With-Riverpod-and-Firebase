@@ -1,3 +1,4 @@
+// ignore: unused_import
 import 'dart:developer';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,7 +22,7 @@ final allCardsProvider = Provider<List<MyCard>>((ref) {
   return allCards;
 });
 
-final allCategoriesProvider = Provider<List<MyCategory>>((ref) {
+final allCategoriesProvider = StateProvider<List<MyCategory>>((ref) {
   List<MyCategory> allCategories = [];
   ref.watch(categoriesNotifier).whenData((categories) {
     allCategories = categories;

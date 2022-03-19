@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart' as fire_store;
-import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class IDataService {
   void initService(String userId) {}

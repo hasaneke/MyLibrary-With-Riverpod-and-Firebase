@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_library/logic/navigation/route.gr.dart';
 import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
-
-import '../provider/login_screen_controller.dart';
+import 'package:my_library/presentation/auth/login/controller/login_screen_controller.dart';
 
 class EmailPasswordForm extends HookConsumerWidget {
   const EmailPasswordForm({Key? key}) : super(key: key);
@@ -74,7 +71,7 @@ class EmailPasswordForm extends HookConsumerWidget {
         ),
         Consumer(
           builder: (context, ref, child) {
-            final signIn = ref.watch(isEmailSignIn);
+            final signIn = ref.watch(loginScreenController).isSignIn;
 
             return signIn
                 ? const CircularProgressIndicator(
