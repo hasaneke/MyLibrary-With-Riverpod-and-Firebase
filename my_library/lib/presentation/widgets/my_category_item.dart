@@ -30,7 +30,7 @@ class MyCategoryItem extends StatelessWidget {
                   color: Color(myCategory.colorCode!) == const Color(0xcc0f0c08)
                       ? Colors.white
                       : Colors.black,
-                  fontSize: 15),
+                  fontSize: 14),
             ),
           )),
     );

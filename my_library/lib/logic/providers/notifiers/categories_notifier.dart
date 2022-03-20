@@ -18,9 +18,8 @@ final dataStoreRepository =
   dataService.initService(ref.read(authNotifier)!.uid);
   return DataStoreRepository(dataService: dataService);
 });
-final categoriesNotifier =
-    StateNotifierProvider<CategoriesNotifier, AsyncValue<List<MyCategory>>>(
-        (ref) {
+final categoriesNotifier = StateNotifierProvider.autoDispose<CategoriesNotifier,
+    AsyncValue<List<MyCategory>>>((ref) {
   return CategoriesNotifier(ref.read);
 });
 
@@ -33,6 +32,7 @@ class CategoriesNotifier extends StateNotifier<AsyncValue<List<MyCategory>>> {
   List<MyCategory> _allCategories = [];
   Future<void> fetchCategories() async {
     try {
+      log('Fetched!');
       var fetchedCategories = await read(dataStoreRepository).fetchCategories();
       state = AsyncData(fetchedCategories);
       _allCategories = fetchedCategories;
@@ -108,6 +108,8 @@ class CategoriesNotifier extends StateNotifier<AsyncValue<List<MyCategory>>> {
 
   @override
   void dispose() {
+    // TODO: implement dispose
+    log('disposed!');
     super.dispose();
   }
 }

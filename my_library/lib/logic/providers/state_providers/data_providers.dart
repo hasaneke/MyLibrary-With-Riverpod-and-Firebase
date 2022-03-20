@@ -22,7 +22,8 @@ final allCardsProvider = Provider<List<MyCard>>((ref) {
   return allCards;
 });
 
-final allCategoriesProvider = StateProvider<List<MyCategory>>((ref) {
+final allCategoriesProvider =
+    StateProvider.autoDispose<List<MyCategory>>((ref) {
   List<MyCategory> allCategories = [];
   ref.watch(categoriesNotifier).whenData((categories) {
     allCategories = categories;

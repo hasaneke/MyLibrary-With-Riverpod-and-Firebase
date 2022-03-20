@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:data_service/exceptions/data_exception.dart';
 import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
@@ -22,8 +21,8 @@ class CardsNotifier extends StateNotifier<AsyncValue<List<MyCard>>> {
 
   Future<void> fetchCards() async {
     try {
+      log('cards fetched');
       List<MyCard> cards = await read(dataStoreRepository).fetchCards();
-      log('getch');
       state = AsyncValue.data(cards);
     } on Exception catch (e) {
       state = AsyncError(e);
@@ -66,5 +65,12 @@ class CardsNotifier extends StateNotifier<AsyncValue<List<MyCard>>> {
       read(dataExceptionProvider.notifier).state =
           DataException(message: e.toString());
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    log('cards disposed!');
+    super.dispose();
   }
 }

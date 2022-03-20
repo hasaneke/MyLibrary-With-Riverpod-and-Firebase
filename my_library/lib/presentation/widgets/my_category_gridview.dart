@@ -27,8 +27,8 @@ class MyCategoryGridView extends HookConsumerWidget {
         shrinkWrap: true,
         itemCount: convertedToWidgetsList.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisSpacing: 35,
-            mainAxisSpacing: 35,
+            crossAxisSpacing: 45,
+            mainAxisSpacing: 45,
             crossAxisCount: 3,
             childAspectRatio: 1),
       ),
