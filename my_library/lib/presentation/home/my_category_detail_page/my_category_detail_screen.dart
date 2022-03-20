@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/data/models/my_category.dart';
 import 'package:my_library/logic/providers/state_providers/data_providers.dart';
+import 'package:my_library/presentation/home/my_category_detail_page/components/categories_body/cateogories_body.dart';
 import 'package:my_library/presentation/widgets/my_card_item.dart';
 
 import '../../widgets/my_category_gridview.dart';
@@ -36,7 +39,9 @@ class CategoryDetailScreen extends HookConsumerWidget {
                   )
                 : Column(
                     children: [
-                      _bodyForCategories(subCategories),
+                      subCategories.isEmpty
+                          ? Container()
+                          : CategoriesBody(myCategory: myCategory),
                       Consumer(
                         builder: (context, ref, child) {
                           final myCards = ref
@@ -75,30 +80,5 @@ class CategoryDetailScreen extends HookConsumerWidget {
       },
       itemCount: myCards.length,
     );
-  }
-
-  Widget _bodyForCategories(List<MyCategory> subCategories) {
-    return subCategories.isNotEmpty
-        ? Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              padding: const EdgeInsets.only(top: 9),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.black54, width: 2)),
-              child: Column(
-                children: [
-                  MyCategoryGridView(containerCatId: myCategory.uniqueId),
-                  IconButton(
-                      onPressed: () => {},
-                      icon: const Icon(
-                        Icons.arrow_upward,
-                        color: Colors.black54,
-                      ))
-                ],
-              ),
-            ),
-          )
-        : IconButton(onPressed: () => {}, icon: const Icon(Icons.grid_view));
   }
 }

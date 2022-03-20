@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_library/core/fonts/font_styles.dart';
 
 abstract class Themes {
   static final limetheme = ThemeData(
     appBarTheme: AppBarTheme(backgroundColor: Colors.lime[50]),
+    fontFamily: FontStyles.selectedFont,
     popupMenuTheme: PopupMenuThemeData(
         textStyle: const TextStyle(color: Colors.black, fontSize: 15),
         color: Colors.lime[50]),

@@ -7,6 +7,7 @@ import 'package:my_library/core/constants/pop_up_menu_constants.dart';
 import 'package:my_library/data/models/my_category.dart';
 import 'package:my_library/presentation/home/my_category_detail_page/components/app_bar/controller/category_detail_appbar_controller.dart';
 import 'package:my_library/presentation/widgets/add_category_dialog.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CategoryDetailAppbar extends HookConsumerWidget {
   MyCategory myCategory;
@@ -14,13 +15,28 @@ class CategoryDetailAppbar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final categoryDetailAppBarController =
+        ChangeNotifierProvider.autoDispose<CategoryDetailAppBarController>(
+            (ref) {
+      return CategoryDetailAppBarController(ref.read);
+    });
     final controller = ref.read(categoryDetailAppBarController);
+    final textEditingController =
+        useTextEditingController(text: myCategory.title);
     return AppBar(
-      title: Center(
-        child: Text(
-          myCategory.title!,
-        ),
-      ),
+      title: Center(child: Consumer(
+        builder: (context, ref, child) {
+          final editTitle = ref.watch(categoryDetailAppBarController).editTitle;
+          return Center(
+              child: editTitle
+                  ? TextField(
+                      controller: textEditingController,
+                      onSubmitted: (text) {
+                        controller.updateTitle(newTitle: text);
+                      })
+                  : Text(myCategory.title!));
+        },
+      )),
       foregroundColor: Colors.black,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       elevation: 0,
@@ -44,6 +60,10 @@ class CategoryDetailAppbar extends HookConsumerWidget {
               case 'delete':
                 await controller.deleteTheCategory(myCategory: myCategory);
                 AutoRouter.of(context).pop();
+                break;
+              case 'edit':
+                await controller.toggleEditTitle();
+                break;
             }
           },
           itemBuilder: (context) => PopUpMenuConstants.choices

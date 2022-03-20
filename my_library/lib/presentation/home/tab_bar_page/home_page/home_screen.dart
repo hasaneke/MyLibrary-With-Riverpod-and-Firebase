@@ -27,6 +27,12 @@ class HomeScreen extends HookConsumerWidget {
         foregroundColor: Colors.black,
         backgroundColor: Colors.lime[50],
         elevation: 0,
+        title: Center(
+          child: SizedBox(
+              height: 45,
+              width: 45,
+              child: Image.asset('assets/my_library_icon.png')),
+        ),
         actions: [
           IconButton(
             icon: Icon(

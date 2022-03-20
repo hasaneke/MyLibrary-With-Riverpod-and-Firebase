@@ -39,7 +39,7 @@ class GoogleButton extends HookConsumerWidget {
                 fit: BoxFit.scaleDown,
                 child: Text(
                   'Google Sign In',
-                  style: TextStyle(fontSize: 15),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w300),
                 ),
               ),
             ),

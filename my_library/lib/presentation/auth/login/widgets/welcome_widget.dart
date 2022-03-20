@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_library/core/fonts/font_styles.dart';
 
 class WelcomeWidget extends StatelessWidget {
   const WelcomeWidget({

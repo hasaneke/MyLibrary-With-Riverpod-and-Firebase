@@ -20,12 +20,6 @@ class MyDrawerController extends StateNotifier {
       {required DrawerOptions option, required BuildContext context}) async {
     switch (option) {
       case DrawerOptions.signout:
-        read(cardsNotifier.notifier).mounted
-            ? null
-            : read(cardsNotifier.notifier).dispose();
-        read(categoriesNotifier.notifier).mounted
-            ? null
-            : read(cardsNotifier.notifier).dispose();
         await read(authNotifier.notifier).logOut();
     }
   }
