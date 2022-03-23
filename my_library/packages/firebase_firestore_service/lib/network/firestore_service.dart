@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart' as fire_store;
 
@@ -40,9 +41,10 @@ class DataService implements IDataService {
   @override
   Future<void> addCard({required String jsonString}) async {
     Map<String, dynamic> decodedJson = jsonDecode(jsonString);
+    log(decodedJson['id']);
     await fire_store.FirebaseFirestore.instance
         .collection(_pathToCards)
-        .doc(decodedJson['unique_id'])
+        .doc(decodedJson['id'])
         .set(decodedJson);
   }
 
@@ -57,6 +59,7 @@ class DataService implements IDataService {
 
   @override
   Future<void> deleteCard({required String id}) async {
+    log(_pathToCards + id);
     await fire_store.FirebaseFirestore.instance
         .collection(_pathToCards)
         .doc(id)

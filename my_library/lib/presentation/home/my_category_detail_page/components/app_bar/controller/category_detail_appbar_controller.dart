@@ -13,9 +13,11 @@ class CategoryDetailAppBarController extends ChangeNotifier {
   }
 
   Future<void> toggleEditTitle() async {
-    editTitle = true;
+    editTitle = !editTitle;
     notifyListeners();
   }
 
-  Future<void> updateTitle({required String newTitle}) async {}
+  Future<void> updateTitle({required MyCategory myCategory}) async {
+    read(categoriesNotifier.notifier).updateCategory(myCategory: myCategory);
+  }
 }

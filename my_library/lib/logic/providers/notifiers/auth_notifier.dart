@@ -7,7 +7,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:authentication/exceptions/auth_exception.dart';
 import 'package:my_library/data/repository/auth/auth_repository.dart';
 import 'package:my_library/logic/providers/notifiers/cards_notifier.dart';
-import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
 import 'package:my_library/logic/providers/state_providers/expection_providers.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {

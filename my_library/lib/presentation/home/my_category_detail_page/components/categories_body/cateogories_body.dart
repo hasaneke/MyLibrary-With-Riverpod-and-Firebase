@@ -51,6 +51,6 @@ class _CategoriesBodyState extends State<CategoriesBody> {
                 isClicked = true;
               });
             },
-            icon: Icon(Icons.grid_view));
+            icon: const Icon(Icons.grid_view));
   }
 }

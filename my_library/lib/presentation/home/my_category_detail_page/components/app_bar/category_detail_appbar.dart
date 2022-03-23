@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable, use_key_in_widget_constructors
 
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -22,18 +24,39 @@ class CategoryDetailAppbar extends HookConsumerWidget {
     });
     final controller = ref.read(categoryDetailAppBarController);
     final textEditingController =
-        useTextEditingController(text: myCategory.title);
+        useTextEditingController(text: myCategory.title!);
+    log('what');
     return AppBar(
       title: Center(child: Consumer(
         builder: (context, ref, child) {
           final editTitle = ref.watch(categoryDetailAppBarController).editTitle;
           return Center(
               child: editTitle
-                  ? TextField(
-                      controller: textEditingController,
-                      onSubmitted: (text) {
-                        controller.updateTitle(newTitle: text);
-                      })
+                  ? Stack(
+                      children: [
+                        TextField(
+                          controller: textEditingController,
+                          onChanged: (value) {
+                            textEditingController.text = value;
+                          },
+                        ),
+                        Positioned(
+                          child: IconButton(
+                            onPressed: () {
+                              controller.updateTitle(
+                                  myCategory: myCategory.copyWith(
+                                      title: textEditingController.text));
+                              controller.toggleEditTitle();
+                            },
+                            icon: const Icon(
+                              Icons.check,
+                              size: 15,
+                            ),
+                          ),
+                          right: 0,
+                        )
+                      ],
+                    )
                   : Text(myCategory.title!));
         },
       )),

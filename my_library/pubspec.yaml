@@ -30,20 +30,24 @@ dependencies:
   authentication:
     path: ./packages/firebase_authentication_service
   auto_route: ^3.2.4
+  auto_size_text_field: ^1.0.1
   cloud_firestore: ^3.1.10
   cupertino_icons: ^1.0.2
   data_service:
     path: ./packages/firebase_firestore_service
+  storage_service:
+    path: ./packages/firebase_storage_service
   firebase_core: ^1.13.1
   firebase_storage: ^10.2.9
   flutter:
     sdk: flutter
   flutter_colorpicker: ^1.0.3
+  font_awesome_flutter: ^10.0.0
   getwidget: ^2.0.5
   google_fonts: ^2.3.1
   hooks_riverpod: ^1.0.3
+  image_picker: ^0.8.4+11
   uuid: ^3.0.6
-  waterfall_flow: ^3.0.2
 
 dev_dependencies:
   auto_route_generator: ^3.2.3
