@@ -21,7 +21,22 @@ class MyCard {
     this.isFavorite = false,
     this.imageUrls,
   });
-
+  factory MyCard.create({
+    required String id,
+    required String containerCatId,
+    String? title,
+    String? shortExp,
+    String? longExp,
+    List<String>? imageUrls,
+  }) {
+    return MyCard(
+        id: id,
+        containerCatId: containerCatId,
+        title: title ?? '',
+        shortExp: shortExp ?? '',
+        longExp: longExp ?? '',
+        imageUrls: imageUrls ?? []);
+  }
   factory MyCard.fromMap(Map<String, dynamic> map) {
     return MyCard(
       id: map['id'],

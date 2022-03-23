@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
-import 'package:my_library/logic/providers/notifiers/cards_notifier.dart';
-import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
 
 final myDrawerController = StateNotifierProvider((ref) {
   return MyDrawerController(ref.read);

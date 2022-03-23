@@ -5,9 +5,11 @@ import 'dart:developer';
 import 'package:data_service/exceptions/data_exception.dart';
 import 'package:data_service/network/firestore_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/data/models/my_category.dart';
 import 'package:my_library/data/repository/data_store/data_store_repository.dart';
 import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
+import 'package:my_library/logic/providers/notifiers/cards_notifier.dart';
 import 'package:my_library/logic/providers/state_providers/data_providers.dart';
 import 'package:my_library/logic/providers/state_providers/expection_providers.dart';
 import 'package:riverpod/riverpod.dart';
@@ -91,7 +93,11 @@ class CategoriesNotifier extends StateNotifier<AsyncValue<List<MyCategory>>> {
     if (myCategory.subCategoriesIds!.isNotEmpty) {
       await _deleteSubCategories(myCategory: myCategory);
     }
+    if (myCategory.cardsIds!.isNotEmpty) {
+      await _clearCards(cardIds: myCategory.cardsIds!);
+    }
     await read(dataStoreRepository).deleteCategory(id: myCategory.uniqueId);
+
     state = state.whenData((data) => data
         .where((element) => element.uniqueId != myCategory.uniqueId)
         .toList());
@@ -101,14 +107,26 @@ class CategoriesNotifier extends StateNotifier<AsyncValue<List<MyCategory>>> {
     for (var subCatId in myCategory.subCategoriesIds!) {
       final category =
           _allCategories.firstWhere((element) => element.uniqueId == subCatId);
-      _deleteSubCategories(myCategory: category);
+      await _clearCards(cardIds: category.cardsIds!);
+      await _deleteSubCategories(myCategory: category);
     }
     await read(dataStoreRepository).deleteCategory(id: myCategory.uniqueId);
   }
 
+  Future<void> _clearCards({required List<String> cardIds}) async {
+    List<MyCard> cards = read(allCardsProvider)
+        .where((element) => cardIds.contains(element.id))
+        .toList();
+    for (var card in cards) {
+      for (var imageUrl in card.imageUrls!) {
+        await read(storageRepository).deleteFile(url: imageUrl);
+      }
+      await read(dataStoreRepository).deleteCard(id: card.id);
+    }
+  }
+
   @override
   void dispose() {
-    // TODO: implement dispose
     log('disposed!');
     super.dispose();
   }
