@@ -26,7 +26,9 @@ class _CategoriesBodyState extends State<CategoriesBody> {
               padding: const EdgeInsets.only(top: 9),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.black54, width: 2)),
+                  border: Border.all(
+                      color: Theme.of(context).textTheme.bodyText1!.color!,
+                      width: 2)),
               child: Column(
                 children: [
                   MyCategoryGridView(
@@ -37,9 +39,9 @@ class _CategoriesBodyState extends State<CategoriesBody> {
                           isClicked = false;
                         });
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.arrow_upward,
-                        color: Colors.black54,
+                        color: Theme.of(context).iconTheme.color,
                       ))
                 ],
               ),
@@ -51,6 +53,9 @@ class _CategoriesBodyState extends State<CategoriesBody> {
                 isClicked = true;
               });
             },
-            icon: const Icon(Icons.grid_view));
+            icon: Icon(
+              Icons.grid_view,
+              color: Theme.of(context).iconTheme.color,
+            ));
   }
 }

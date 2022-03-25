@@ -8,6 +8,9 @@ class AuthException implements Exception {
   String toString() {
     String theMessage = "";
     switch (code) {
+      case 'wrong-password':
+        theMessage = "Wrong password";
+        return theMessage;
       case 'user-not-found':
         theMessage = "User not found";
         return theMessage;

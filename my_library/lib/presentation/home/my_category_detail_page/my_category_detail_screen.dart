@@ -32,7 +32,9 @@ class CategoryDetailScreen extends HookConsumerWidget {
               builder: (context, ref, child) {
                 final category = ref.watch(allCategoriesProvider).firstWhere(
                     (element) => element.uniqueId == myCategory.uniqueId);
-                return CategoryDetailAppbar(category);
+                return CategoryDetailAppbar(
+                  myCategory: category,
+                );
               },
             ),
             (myCards.isEmpty && subCategories.isEmpty)

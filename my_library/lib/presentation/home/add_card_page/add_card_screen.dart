@@ -1,18 +1,23 @@
 import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:my_library/presentation/home/add_card_page/controller/add_card_sceen_controller.dart';
 
 class AddCardScreen extends HookConsumerWidget {
-  String containerCatId;
-  AddCardScreen({required this.containerCatId});
+  final String containerCatId;
+
+  const AddCardScreen({required this.containerCatId, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final functionController = ref.read(addCardScreenController);
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(body: Consumer(
       builder: (context, ref, child) {
         final screenController = ref.watch(addCardScreenController);
@@ -41,9 +46,17 @@ class AddCardScreen extends HookConsumerWidget {
                           AppBar(
                             backgroundColor:
                                 Theme.of(context).scaffoldBackgroundColor,
-                            foregroundColor: Colors.black,
+                            foregroundColor:
+                                Theme.of(context).appBarTheme.foregroundColor,
                             elevation: 0,
-                            title: const Text('Add Card'),
+                            title: Text(
+                              'Add Card',
+                              style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .color),
+                            ),
                             centerTitle: true,
                           ),
                           Form(
@@ -63,7 +76,8 @@ class AddCardScreen extends HookConsumerWidget {
                                             color: Colors.black54),
                                       ),
                                       color: Theme.of(context)
-                                          .scaffoldBackgroundColor,
+                                          .dialogTheme
+                                          .backgroundColor,
                                       elevation: 4,
                                       child: TextFormField(
                                         enabled:
@@ -171,10 +185,8 @@ class AddCardScreen extends HookConsumerWidget {
                                 child: SizedBox(
                                   height: size.height * 0.6,
                                   width: size.width * 0.7,
-                                  child: Container(
-                                    child: Image.file(
-                                        screenController.tappedImage!),
-                                  ),
+                                  child:
+                                      Image.file(screenController.tappedImage!),
                                 ),
                               ),
                             ),
@@ -196,7 +208,7 @@ class AddCardScreen extends HookConsumerWidget {
           borderRadius: BorderRadius.circular(7),
           side: const BorderSide(color: Colors.black54),
         ),
-        color: Theme.of(context).scaffoldBackgroundColor,
+        color: Theme.of(context).dialogTheme.backgroundColor,
         elevation: 4,
         child: TextFormField(
           enabled: !screenController.isImageClicked,
@@ -218,16 +230,17 @@ class AddCardScreen extends HookConsumerWidget {
         borderRadius: BorderRadius.circular(7),
         side: const BorderSide(color: Colors.black54),
       ),
-      color: Theme.of(context).scaffoldBackgroundColor,
+      color: Theme.of(context).dialogTheme.backgroundColor,
       elevation: 4,
       child: TextFormField(
-        enabled: !screenController.isImageClicked,
-        onSaved: (shortExp) {
-          screenController.shortExp = shortExp!;
-        },
-        decoration: const InputDecoration(
-            border: InputBorder.none, hintText: 'Short Exp'),
-      ),
+          enabled: !screenController.isImageClicked,
+          onSaved: (shortExp) {
+            screenController.shortExp = shortExp!;
+          },
+          decoration: const InputDecoration(
+            border: InputBorder.none,
+            hintText: 'Short Exp',
+          )),
     );
   }
 
@@ -306,7 +319,7 @@ class AddCardScreen extends HookConsumerWidget {
           IconButton(
             onPressed: () {},
             icon: const FaIcon(
-              FontAwesomeIcons.fileUpload,
+              FontAwesomeIcons.fileArrowUp,
               size: 30,
             ),
           )

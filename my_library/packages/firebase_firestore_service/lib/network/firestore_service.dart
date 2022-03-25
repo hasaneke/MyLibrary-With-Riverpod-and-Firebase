@@ -97,6 +97,7 @@ class DataService implements IDataService {
     List<String> cardsJsonList = [];
     final querySnapshot = await fire_store.FirebaseFirestore.instance
         .collection(_pathToCards)
+        .orderBy('created_at', descending: false)
         .get();
 
     for (var doc in querySnapshot.docs) {

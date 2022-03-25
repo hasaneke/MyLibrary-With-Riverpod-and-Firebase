@@ -11,7 +11,7 @@ class SignUpScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Colors.black,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         elevation: 0,
 
@@ -36,6 +36,7 @@ class SignUpScreen extends HookConsumerWidget {
                   child: Container(
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
+                        color: Theme.of(context).backgroundColor,
                         border: Border.all(width: 1, color: Colors.grey),
                         borderRadius: BorderRadius.circular(15)),
                     child: Column(
@@ -99,6 +100,8 @@ class SignUpScreen extends HookConsumerWidget {
                               color: Colors.black,
                             )
                           : ElevatedButton(
+                              style:
+                                  Theme.of(context).elevatedButtonTheme.style,
                               onPressed: () async {
                                 await ref
                                     .read(signUpController.notifier)
@@ -111,9 +114,13 @@ class SignUpScreen extends HookConsumerWidget {
                                   log('what happened?');
                                 }
                               },
-                              child: const Text('Sign Up',
+                              child: Text('Sign Up',
                                   style: TextStyle(
-                                      color: Colors.black, fontSize: 20)),
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .color,
+                                      fontSize: 20)),
 
                               // ),
                             );

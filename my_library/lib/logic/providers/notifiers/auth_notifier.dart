@@ -53,6 +53,7 @@ class AuthNotifier extends StateNotifier<User?> {
       state = await read(authRepositoryProvider)
           .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
+      log(e.code);
       _handleError(AuthException(code: e.code));
     } on PlatformException catch (e) {
       _handleError(AuthException(code: e.code));

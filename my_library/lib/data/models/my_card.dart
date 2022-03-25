@@ -8,17 +8,19 @@ class MyCard {
   String? title;
   String? shortExp;
   String? longExp;
-  bool isFavorite;
+  bool isMarked;
+  DateTime createdAt;
   List<String>? imageUrls = [];
 
   List<Image>? images = [];
   MyCard({
     required this.id,
     required this.containerCatId,
+    required this.createdAt,
     this.title = '',
     this.shortExp = '',
     this.longExp = '',
-    this.isFavorite = false,
+    this.isMarked = false,
     this.imageUrls,
   });
   factory MyCard.create({
@@ -31,6 +33,7 @@ class MyCard {
   }) {
     return MyCard(
         id: id,
+        createdAt: DateTime.now(),
         containerCatId: containerCatId,
         title: title ?? '',
         shortExp: shortExp ?? '',
@@ -40,11 +43,12 @@ class MyCard {
   factory MyCard.fromMap(Map<String, dynamic> map) {
     return MyCard(
       id: map['id'],
+      createdAt: DateTime.parse(map['created_at']),
       containerCatId: map['container_cat_id'],
       title: map['title'] ?? '',
-      shortExp: map['short_Exp'] ?? '',
+      shortExp: map['short_exp'] ?? '',
       longExp: map['long_exp'] ?? '',
-      isFavorite: map['is_favorite'],
+      isMarked: map['is_marked'],
       imageUrls:
           map['image_urls'] != null ? List<String>.from(map['image_urls']) : [],
     );
@@ -52,11 +56,12 @@ class MyCard {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
+      'created_at': createdAt.toString(),
       'container_cat_id': containerCatId,
       'title': title ?? '',
       'short_exp': shortExp ?? '',
       'long_exp': longExp ?? '',
-      'is_favorite': isFavorite,
+      'is_marked': isMarked,
       'image_urls': imageUrls,
     };
   }

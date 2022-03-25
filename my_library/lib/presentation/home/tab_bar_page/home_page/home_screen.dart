@@ -24,20 +24,19 @@ class HomeScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.lime[50],
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         elevation: 0,
         title: Center(
           child: SizedBox(
               height: 45,
               width: 45,
-              child: Image.asset('assets/my_library_icon.png')),
+              child: Image.asset('assets/icon_white.png')),
         ),
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.add_to_photos_outlined,
-              color: Theme.of(context).iconTheme.color,
               size: 30,
             ),
             onPressed: () {

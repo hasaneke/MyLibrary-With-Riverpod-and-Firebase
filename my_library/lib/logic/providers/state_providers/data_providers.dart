@@ -7,10 +7,10 @@ import 'package:my_library/data/models/my_category.dart';
 import 'package:my_library/logic/providers/notifiers/cards_notifier.dart';
 import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
 
-final favoriteCardsProvider = Provider<List<MyCard>>((ref) {
+final markedCardsProvider = Provider<List<MyCard>>((ref) {
   List<MyCard> favoriteCards = ref
       .watch(allCardsProvider)
-      .where((card) => card.isFavorite == true)
+      .where((card) => card.isMarked == true)
       .toList();
   return favoriteCards;
 });

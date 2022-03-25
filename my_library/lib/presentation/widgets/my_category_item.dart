@@ -18,19 +18,31 @@ class MyCategoryItem extends StatelessWidget {
       },
       child: Container(
           decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Color(myCategory.colorCode!),
+                  offset: Offset(0.0, 5),
+                  blurRadius: 2,
+                )
+              ],
               borderRadius: BorderRadius.circular(15),
               color: myCategory.colorCode == null
                   ? Colors.red
                   : Color(myCategory.colorCode!)),
-          child: Center(
-            child: Text(
-              myCategory.title!,
-              textAlign: TextAlign.center,
-              style: TextStyle(
+          child: Padding(
+            padding: const EdgeInsets.all(0),
+            child: Center(
+              child: Text(
+                myCategory.title!,
+                textAlign: TextAlign.center,
+                style: TextStyle(
                   color: Color(myCategory.colorCode!) == const Color(0xcc0f0c08)
                       ? Colors.white
                       : Colors.black,
-                  fontSize: 14),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           )),
     );

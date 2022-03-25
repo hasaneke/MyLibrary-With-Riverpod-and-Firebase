@@ -2,12 +2,10 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/logic/providers/notifiers/cards_notifier.dart';
-import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
-import 'package:my_library/logic/providers/state_providers/data_providers.dart';
 import 'package:uuid/uuid.dart';
 
 final addCardScreenController =
@@ -41,16 +39,25 @@ class AddCardScreenController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void pickImageWithCamera() async {
-    final pickedImage = await _imagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 75);
-    pickedImages = [...pickedImages, File(pickedImage!.path)];
-    notifyListeners();
+  Future<void> pickImageWithCamera() async {
+    try {
+      final pickedImage = await _imagePicker.pickImage(
+          source: ImageSource.camera,
+          imageQuality: 40,
+          maxHeight: 800,
+          maxWidth: 400);
+      pickedImages = [...pickedImages, File(pickedImage!.path)];
+      notifyListeners();
+    } on PlatformException catch (e) {
+      log(e.code);
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
-  void pickImageWithGallery() async {
-    final pickedImagesFromGalleryAsXFile =
-        await _imagePicker.pickMultiImage(imageQuality: 75);
+  Future<void> pickImageWithGallery() async {
+    final pickedImagesFromGalleryAsXFile = await _imagePicker.pickMultiImage(
+        imageQuality: 40, maxHeight: 800, maxWidth: 800);
     List<File> pickedImagesFromGallery = pickedImagesFromGalleryAsXFile!
         .map((e) => File.fromUri(Uri(path: e.path)))
         .toList();
@@ -66,6 +73,7 @@ class AddCardScreenController extends ChangeNotifier {
   Future<void> addCard() async {
     formKey.currentState!.save();
     isUploading = true;
+    notifyListeners();
     await read(cardsNotifier.notifier).addCard(values: {
       'id': const Uuid().v1(),
       'containerCatId': containerCatId,
