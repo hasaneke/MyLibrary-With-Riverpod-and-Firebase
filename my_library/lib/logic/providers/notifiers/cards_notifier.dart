@@ -86,16 +86,17 @@ class CardsNotifier extends StateNotifier<AsyncValue<List<MyCard>>> {
   Future<void> deleteCard({required String id}) async {
     try {
       final containerCategory = read(allCategoriesProvider)
-          .firstWhere((element) => element.subCategoriesIds!.contains(id));
+          .firstWhere((element) => element.cardsIds!.contains(id));
+      log(containerCategory.title!);
 
       final card =
-          read(allCardsProvider).firstWhere((element) => element.id == id);
+          state.asData!.value.firstWhere((element) => element.id == id);
       for (var imageUrl in card.imageUrls!) {
         await read(storageRepository).deleteFile(url: imageUrl);
       }
-      await read(dataStoreRepository).updateCategory(
+      await read(categoriesNotifier.notifier).updateCategory(
           myCategory: containerCategory.copyWith(
-              subCategoriesIds: containerCategory.subCategoriesIds!
+              cardsIds: containerCategory.cardsIds!
                   .where((element) => element != id)
                   .toList()));
       await read(dataStoreRepository).deleteCard(id: id);
@@ -109,7 +110,6 @@ class CardsNotifier extends StateNotifier<AsyncValue<List<MyCard>>> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     log('cards disposed!');
     super.dispose();
   }

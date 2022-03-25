@@ -15,31 +15,46 @@ class PasswordResetScreen extends HookConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Align(
+            Align(
               alignment: Alignment.topLeft,
               child: Text(
                 'Login Help',
-                // style: TextStyle(
-                //     color: context.textTheme.bodyText1!.color, fontSize: 25),
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyText1!.color,
+                    fontSize: 25),
               ),
             ),
             Column(
-              children: const [
+              children: [
                 Text(
                   'Find your account',
-                  style: TextStyle(fontSize: 25),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 27),
                 ),
                 SizedBox(
                   height: 15,
                 ),
-                Text('Enter your email linked to your account'),
+                Text('Enter your email linked to your account',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(fontSize: 15)),
               ],
             ),
             Column(
               children: [
-                const TextField(
-                  //controller: controller.textController,
+                TextField(
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 17),
                   decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color:
+                                Theme.of(context).textTheme.bodyText1!.color!)),
                     hintText: 'email',
                   ),
                 ),
@@ -67,10 +82,14 @@ class PasswordResetScreen extends HookConsumerWidget {
                                             'Password reset request is sent')));
                               }
                             },
-                            child: const Text(
+                            child: Text(
                               'Send password reset request',
-                              // style: TextStyle(
-                              //     color: Get.theme.textTheme.bodyText1!.color),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400),
                             ));
                   },
                 )

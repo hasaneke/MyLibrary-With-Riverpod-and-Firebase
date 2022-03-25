@@ -1,7 +1,3 @@
-// ignore_for_file: must_be_immutable, use_key_in_widget_constructors
-
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -12,8 +8,10 @@ import 'package:my_library/presentation/widgets/add_category_dialog.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CategoryDetailAppbar extends HookConsumerWidget {
-  MyCategory myCategory;
-  CategoryDetailAppbar(this.myCategory);
+  final MyCategory myCategory;
+
+  const CategoryDetailAppbar({required this.myCategory, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,7 +23,6 @@ class CategoryDetailAppbar extends HookConsumerWidget {
     final controller = ref.read(categoryDetailAppBarController);
     final textEditingController =
         useTextEditingController(text: myCategory.title!);
-    log('what');
     return AppBar(
       title: Center(child: Consumer(
         builder: (context, ref, child) {
@@ -35,6 +32,12 @@ class CategoryDetailAppbar extends HookConsumerWidget {
                   ? Stack(
                       children: [
                         TextField(
+                          enableSuggestions: true,
+                          decoration: const InputDecoration(
+                              border: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.red, width: 2))),
+                          style: Theme.of(context).textTheme.bodyText1,
                           controller: textEditingController,
                           onChanged: (value) {
                             textEditingController.text = value;
@@ -60,8 +63,8 @@ class CategoryDetailAppbar extends HookConsumerWidget {
                   : Text(myCategory.title!));
         },
       )),
-      foregroundColor: Colors.black,
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       elevation: 0,
       actions: [
         IconButton(
@@ -78,6 +81,7 @@ class CategoryDetailAppbar extends HookConsumerWidget {
           ),
         ),
         PopupMenuButton<String>(
+          color: Theme.of(context).popupMenuTheme.color,
           onSelected: (choice) async {
             switch (choice) {
               case 'delete':
@@ -90,8 +94,12 @@ class CategoryDetailAppbar extends HookConsumerWidget {
             }
           },
           itemBuilder: (context) => PopUpMenuConstants.choices
-              .map((choice) =>
-                  PopupMenuItem<String>(value: choice, child: Text(choice)))
+              .map((choice) => PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(
+                    choice,
+                    style: Theme.of(context).popupMenuTheme.textStyle,
+                  )))
               .toList(),
         )
       ],

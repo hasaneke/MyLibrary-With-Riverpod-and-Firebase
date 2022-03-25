@@ -1,11 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:my_library/logic/navigation/route.gr.dart';
 import '../../data/models/my_card.dart';
 
-// ignore: must_be_immutable
 class MyCardItem extends StatelessWidget {
-  MyCard myCard;
-  MyCardItem(this.myCard);
+  final MyCard myCard;
+  const MyCardItem(this.myCard, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +14,8 @@ class MyCardItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
       elevation: 5,
       child: ListTile(
+        onTap: () =>
+            AutoRouter.of(context).push(CardDetailScreen(myCard: myCard)),
         leading: myCard.imageUrls!.isNotEmpty
             ? CircleAvatar(
                 backgroundColor: Colors.white,
@@ -23,7 +26,7 @@ class MyCardItem extends StatelessWidget {
           myCard.title!,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.bodyText2,
+          style: Theme.of(context).textTheme.titleSmall,
         ),
         subtitle: myCard.shortExp != ''
             ? Text(

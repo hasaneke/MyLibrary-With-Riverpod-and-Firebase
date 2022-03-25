@@ -14,13 +14,11 @@ class LoginScreenController extends ChangeNotifier {
   bool isGoogleSigninIn = false;
   Future<void> signInWithEmailAndPassword(
       {required String email, required String password}) async {
-    //read(isEmailSignIn.notifier).state = true;
     isSignIn = true;
     notifyListeners();
     await read(authNotifier.notifier)
         .signInWithEmailAndPassword(email: email, password: password);
     if (read(authNotifier) == null) {
-      // read(isEmailSignIn.notifier).state = false;
       isSignIn = false;
     }
     notifyListeners();

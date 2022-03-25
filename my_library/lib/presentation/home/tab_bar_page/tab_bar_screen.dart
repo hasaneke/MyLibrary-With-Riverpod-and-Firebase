@@ -25,10 +25,10 @@ class TabScreen extends HookConsumerWidget {
             body: Center(child: Text('Something happend!')),
           );
         }, loading: () {
-          return const Scaffold(
+          return Scaffold(
             body: Center(
               child: CircularProgressIndicator(
-                color: Colors.black,
+                color: Theme.of(context).progressIndicatorTheme.color,
               ),
             ),
           );
@@ -51,23 +51,40 @@ class TabView extends StatelessWidget {
     return Scaffold(
       body: GFTabBarView(
         controller: tabController,
-        children: const [HomeScreen(), MarkedCardsScreen(), AllCardsScreen()],
+        children: [
+          const HomeScreen(),
+          MarkedCardsScreen(),
+          const AllCardsScreen()
+        ],
       ),
       bottomNavigationBar: GFTabBar(
-        tabBarColor: Colors.lime[50],
+        tabBarColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
         length: 3,
         controller: tabController,
-        labelColor: Colors.black,
-        tabBarHeight: 60,
-        tabs: const [
+        labelColor: Theme.of(context).textTheme.bodyText1!.color,
+        unselectedLabelStyle:
+            const TextStyle(color: Colors.white30, fontSize: 9),
+        tabBarHeight: MediaQuery.of(context).size.height * 0.090,
+        tabs: [
           Tab(
-            icon: Icon(Icons.home),
+              child: const Text('Home'),
+              icon: Icon(
+                Icons.home,
+                color: Theme.of(context).iconTheme.color,
+              )),
+          Tab(
+            text: 'Marked',
+            icon: Icon(
+              Icons.bookmark,
+              color: Theme.of(context).iconTheme.color,
+            ),
           ),
           Tab(
-            icon: Icon(Icons.bookmark),
-          ),
-          Tab(
-            icon: Icon(Icons.all_inbox),
+            text: 'All Cards',
+            icon: Icon(
+              Icons.all_inbox,
+              color: Theme.of(context).iconTheme.color,
+            ),
           ),
         ],
       ),

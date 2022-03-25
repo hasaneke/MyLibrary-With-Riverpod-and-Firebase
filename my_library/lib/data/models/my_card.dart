@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
 class MyCard {
   String id;
@@ -9,7 +8,7 @@ class MyCard {
   String? title;
   String? shortExp;
   String? longExp;
-  bool isFavorite;
+  bool isMarked;
   DateTime createdAt;
   List<String>? imageUrls = [];
 
@@ -21,7 +20,7 @@ class MyCard {
     this.title = '',
     this.shortExp = '',
     this.longExp = '',
-    this.isFavorite = false,
+    this.isMarked = false,
     this.imageUrls,
   });
   factory MyCard.create({
@@ -47,9 +46,9 @@ class MyCard {
       createdAt: DateTime.parse(map['created_at']),
       containerCatId: map['container_cat_id'],
       title: map['title'] ?? '',
-      shortExp: map['short_Exp'] ?? '',
+      shortExp: map['short_exp'] ?? '',
       longExp: map['long_exp'] ?? '',
-      isFavorite: map['is_favorite'],
+      isMarked: map['is_marked'],
       imageUrls:
           map['image_urls'] != null ? List<String>.from(map['image_urls']) : [],
     );
@@ -62,7 +61,7 @@ class MyCard {
       'title': title ?? '',
       'short_exp': shortExp ?? '',
       'long_exp': longExp ?? '',
-      'is_favorite': isFavorite,
+      'is_marked': isMarked,
       'image_urls': imageUrls,
     };
   }

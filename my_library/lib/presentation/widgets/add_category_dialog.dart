@@ -20,6 +20,7 @@ class AddCategoryDialog extends HookConsumerWidget {
     return AlertDialog(
       elevation: 7,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+      backgroundColor: Theme.of(context).dialogTheme.backgroundColor,
       content: Form(
         key: formKey,
         child: Column(
@@ -27,7 +28,12 @@ class AddCategoryDialog extends HookConsumerWidget {
           children: [
             TextFormField(
               keyboardType: TextInputType.name,
-              decoration: const InputDecoration(hintText: 'Add Category'),
+              style: TextStyle(
+                  color: Theme.of(context).textTheme.bodyText1!.color!),
+              decoration: InputDecoration(
+                  hintText: 'Name',
+                  hintStyle: TextStyle(
+                      color: Theme.of(context).textTheme.bodyText1!.color!)),
               onSaved: (value) {
                 title = value;
               },
@@ -57,6 +63,7 @@ class AddCategoryDialog extends HookConsumerWidget {
             Container(
                 padding: const EdgeInsets.only(top: 15),
                 child: ElevatedButton(
+                    style: Theme.of(context).elevatedButtonTheme.style,
                     onPressed: () async {
                       formKey.currentState!.save();
                       ref.read(categoriesNotifier.notifier).addCategory(
@@ -67,9 +74,11 @@ class AddCategoryDialog extends HookConsumerWidget {
                               colorCode: selectedColor.value));
                       AutoRouter.of(context).pop();
                     },
-                    child: const Text(
+                    child: Text(
                       'Add',
-                      style: TextStyle(color: Colors.black, fontSize: 18),
+                      style: TextStyle(
+                          color: Theme.of(context).textTheme.bodyText1!.color!,
+                          fontSize: 18),
                     ))),
           ],
         ),

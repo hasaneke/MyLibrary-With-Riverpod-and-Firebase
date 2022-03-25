@@ -33,7 +33,7 @@ class _SplashView2State extends ConsumerState<SplashView> {
           height: 120,
           width: 120,
           child: Image.asset(
-            'assets/my_library_icon.png',
+            'assets/icon_white.png',
           ),
         ),
       ),

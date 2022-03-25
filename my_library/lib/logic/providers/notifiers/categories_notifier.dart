@@ -29,6 +29,7 @@ class CategoriesNotifier extends StateNotifier<AsyncValue<List<MyCategory>>> {
   CategoriesNotifier(this.read, [AsyncValue<List<MyCategory>>? state])
       : super(state ?? const AsyncLoading()) {
     fetchCategories();
+    read(cardsNotifier.notifier).fetchCards();
   }
   Reader read;
   List<MyCategory> _allCategories = [];

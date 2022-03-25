@@ -10,6 +10,7 @@ class MyDrawer extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Drawer(
+      backgroundColor: Theme.of(context).drawerTheme.backgroundColor,
       child: Column(
         children: [
           Container(
@@ -23,9 +24,11 @@ class MyDrawer extends HookConsumerWidget {
                     height: 1,
                     color: Colors.black,
                   ),
-                  const Text(
+                  Text(
                     'My Library',
-                    style: TextStyle(fontSize: 27),
+                    style: TextStyle(
+                        fontSize: 27,
+                        color: Theme.of(context).textTheme.bodyText1!.color),
                   ),
                   Container(
                     width: 20,
@@ -36,7 +39,10 @@ class MyDrawer extends HookConsumerWidget {
               ))),
           drawerItem(
               title: 'Signout',
-              icon: const Icon(Icons.logout),
+              icon: Icon(
+                Icons.logout,
+                color: Theme.of(context).iconTheme.color,
+              ),
               option: DrawerOptions.signout,
               context: context,
               ref: ref)

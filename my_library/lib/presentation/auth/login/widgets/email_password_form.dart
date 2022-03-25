@@ -16,6 +16,7 @@ class EmailPasswordForm extends HookConsumerWidget {
         Container(
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
+              color: Theme.of(context).backgroundColor,
               border: Border.all(width: 1, color: Colors.grey),
               borderRadius: BorderRadius.circular(15)),
           child: Column(
@@ -26,9 +27,10 @@ class EmailPasswordForm extends HookConsumerWidget {
                 focusNode: _focuseNode1,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                     hintText: 'email',
-                    prefixIcon: Icon(Icons.mail, color: Colors.black)),
+                    prefixIcon: Icon(Icons.mail,
+                        color: Theme.of(context).textTheme.bodyText1!.color)),
                 validator: (value) {
                   if (!value!.contains('@') || value.isEmpty) {}
                   return null;
@@ -40,9 +42,10 @@ class EmailPasswordForm extends HookConsumerWidget {
                 focusNode: _focuseNode2,
                 textInputAction: TextInputAction.done,
                 obscureText: true,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'password',
-                  prefixIcon: Icon(Icons.vpn_key, color: Colors.black),
+                  prefixIcon: Icon(Icons.vpn_key,
+                      color: Theme.of(context).iconTheme.color),
                 ),
                 onSaved: (passwordText) {},
                 validator: (value) {
@@ -74,10 +77,11 @@ class EmailPasswordForm extends HookConsumerWidget {
             final signIn = ref.watch(loginScreenController).isSignIn;
 
             return signIn
-                ? const CircularProgressIndicator(
-                    color: Colors.black,
+                ? CircularProgressIndicator(
+                    color: Theme.of(context).textTheme.bodyText1!.color,
                   )
                 : ElevatedButton(
+                    style: Theme.of(context).elevatedButtonTheme.style,
                     onPressed: () async {
                       await ref
                           .read(loginScreenController.notifier)
@@ -88,9 +92,11 @@ class EmailPasswordForm extends HookConsumerWidget {
                         AutoRouter.of(context).replace(const TabScreen());
                       } else {}
                     },
-                    child: const Text(
+                    child: Text(
                       'Sign in',
-                      style: TextStyle(color: Colors.black, fontSize: 22),
+                      style: TextStyle(
+                          color: Theme.of(context).textTheme.bodyText1!.color,
+                          fontSize: 22),
                     ));
           },
         ),
