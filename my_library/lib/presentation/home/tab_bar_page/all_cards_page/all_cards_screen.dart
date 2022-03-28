@@ -23,7 +23,12 @@ class AllCardsScreen extends HookConsumerWidget {
           builder: (context, ref, child) {
             final allCards = ref.watch(allCardsProvider);
             return Column(
-              children: allCards.map((e) => MyCardItem(e)).toList(),
+              children: allCards
+                  .map((e) => MyCardItem(
+                        myCard: e,
+                        onLongPressed: () {},
+                      ))
+                  .toList(),
             );
           },
         ));

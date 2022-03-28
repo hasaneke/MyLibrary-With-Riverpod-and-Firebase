@@ -25,7 +25,10 @@ class MarkedCardsScreen extends HookConsumerWidget {
               controller: ScrollController(keepScrollOffset: true),
               shrinkWrap: true,
               itemBuilder: (BuildContext context, index) {
-                return MyCardItem(markedCards[index]);
+                return MyCardItem(
+                  myCard: markedCards[index],
+                  onLongPressed: () {},
+                );
               },
               itemCount: markedCards.length,
             );

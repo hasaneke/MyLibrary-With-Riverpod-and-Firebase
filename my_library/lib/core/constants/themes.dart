@@ -79,7 +79,7 @@ abstract class Themes {
           const Color.fromARGB(255, 71, 64, 64)),
     )),
     backgroundColor: const Color.fromARGB(255, 71, 64, 64),
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
         bodyText1: TextStyle(color: Colors.white, fontSize: 20),
         bodyText2: TextStyle(color: Colors.white, fontSize: 15),
         subtitle1: TextStyle(color: Colors.black54, fontSize: 15),

@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-class MyCategory {
+import 'package:flutter/cupertino.dart';
+
+class MyCategory extends ChangeNotifier {
   String uniqueId;
   String? containerCatId;
   String? title;

@@ -6,7 +6,10 @@ import '../../data/models/my_card.dart';
 
 class MyCardItem extends StatelessWidget {
   final MyCard myCard;
-  const MyCardItem(this.myCard, {Key? key}) : super(key: key);
+  final Function onLongPressed;
+  const MyCardItem(
+      {required this.myCard, required this.onLongPressed, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +17,7 @@ class MyCardItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
       elevation: 5,
       child: ListTile(
+        onLongPress: () => onLongPressed,
         onTap: () =>
             AutoRouter.of(context).push(CardDetailScreen(myCard: myCard)),
         leading: myCard.imageUrls!.isNotEmpty

@@ -21,7 +21,6 @@ class AddCardScreenController extends ChangeNotifier {
   String title = '';
   String shortExp = '';
   String longExp = '';
-  List<File> pickedFiles = [];
   List<File> pickedImages = [];
   bool isUploading = false;
   bool isImageClicked = false;
@@ -43,7 +42,7 @@ class AddCardScreenController extends ChangeNotifier {
     try {
       final pickedImage = await _imagePicker.pickImage(
           source: ImageSource.camera,
-          imageQuality: 40,
+          imageQuality: 100,
           maxHeight: 800,
           maxWidth: 400);
       pickedImages = [...pickedImages, File(pickedImage!.path)];
@@ -57,7 +56,7 @@ class AddCardScreenController extends ChangeNotifier {
 
   Future<void> pickImageWithGallery() async {
     final pickedImagesFromGalleryAsXFile = await _imagePicker.pickMultiImage(
-        imageQuality: 40, maxHeight: 800, maxWidth: 800);
+        imageQuality: 100, maxHeight: 800, maxWidth: 800);
     List<File> pickedImagesFromGallery = pickedImagesFromGalleryAsXFile!
         .map((e) => File.fromUri(Uri(path: e.path)))
         .toList();

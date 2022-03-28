@@ -33,7 +33,7 @@ class PasswordResetScreen extends HookConsumerWidget {
                       .bodyText1!
                       .copyWith(fontSize: 27),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Text('Enter your email linked to your account',

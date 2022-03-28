@@ -14,7 +14,10 @@ class MyCategoryGridView extends HookConsumerWidget {
         .watch(allCategoriesProvider)
         .where((element) => element.containerCatId == containerCatId);
     List<MyCategoryItem> convertedToWidgetsList = categories.map((category) {
-      return MyCategoryItem(category);
+      return MyCategoryItem(
+        myCategory: category,
+        longPressed: () {},
+      );
     }).toList();
 
     return Padding(

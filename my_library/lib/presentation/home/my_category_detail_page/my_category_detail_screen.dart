@@ -82,7 +82,10 @@ class CategoryDetailScreen extends HookConsumerWidget {
       shrinkWrap: true,
       itemBuilder: (BuildContext context, index) {
         var card = myCards.elementAt(index);
-        return MyCardItem(card);
+        return MyCardItem(
+          myCard: card,
+          onLongPressed: () {},
+        );
       },
       itemCount: myCards.length,
     );

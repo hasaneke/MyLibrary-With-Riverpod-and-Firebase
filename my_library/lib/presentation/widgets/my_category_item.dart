@@ -6,8 +6,12 @@ import 'package:my_library/logic/navigation/route.gr.dart';
 // ignore: must_be_immutable
 class MyCategoryItem extends StatelessWidget {
   MyCategory myCategory;
+  Function longPressed;
   // ignore: use_key_in_widget_constructors
-  MyCategoryItem(this.myCategory);
+  MyCategoryItem({
+    required this.myCategory,
+    required this.longPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,7 @@ class MyCategoryItem extends StatelessWidget {
                       ? Colors.white
                       : Colors.black,
                   fontSize: 14,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
