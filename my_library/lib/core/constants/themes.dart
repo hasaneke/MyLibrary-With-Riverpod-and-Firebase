@@ -46,7 +46,9 @@ abstract class Themes {
   );
   /* DARK THEME */
   static final darkTheme = ThemeData(
-    primaryTextTheme: TextTheme(bodyText1: TextStyle(color: Colors.white)),
+    scaffoldBackgroundColor: Colors.black54,
+    primaryTextTheme:
+        const TextTheme(bodyText1: TextStyle(color: Colors.white)),
     popupMenuTheme: const PopupMenuThemeData(
         color: Color.fromARGB(255, 71, 64, 64),
         textStyle: TextStyle(color: Colors.white, fontSize: 14)),
@@ -54,8 +56,8 @@ abstract class Themes {
     progressIndicatorTheme:
         const ProgressIndicatorThemeData(color: Colors.white),
     drawerTheme: const DrawerThemeData(
-        backgroundColor: Color.fromARGB(255, 71, 64, 64),
-        scrimColor: Color.fromARGB(255, 71, 64, 64)),
+      backgroundColor: Color.fromARGB(255, 71, 64, 64),
+    ),
     buttonTheme:
         const ButtonThemeData(buttonColor: Color.fromARGB(255, 71, 64, 64)),
     dialogTheme:
@@ -69,7 +71,6 @@ abstract class Themes {
     fontFamily: FontStyles.selectedFont,
     unselectedWidgetColor: Colors.black45,
     selectedRowColor: Colors.red,
-    scaffoldBackgroundColor: Colors.black54,
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
       elevation: MaterialStateProperty.all<double>(8),

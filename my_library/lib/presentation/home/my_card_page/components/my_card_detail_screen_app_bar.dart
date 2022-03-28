@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:my_library/core/constants/pop_up_menu_constants.dart';
 import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/presentation/home/my_card_page/controller/my_card_detail_screen_controller.dart';
+import 'package:my_library/presentation/widgets/move_dialog.dart';
 
 class MyCardDetailScreenAppBar extends StatelessWidget {
   const MyCardDetailScreenAppBar({
@@ -60,6 +61,12 @@ class MyCardDetailScreenAppBar extends StatelessWidget {
                     case 'edit':
                       break;
                     case 'move':
+                      showDialog(
+                          context: context,
+                          builder: (_) => MoveDialog(
+                                uniqueId: myCard.id,
+                              ));
+                      break;
                   }
                 },
                 itemBuilder: (context) => PopUpMenuConstants.choices

@@ -18,13 +18,6 @@ class MyCategoryItem extends StatelessWidget {
       },
       child: Container(
           decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Color(myCategory.colorCode!),
-                  offset: Offset(0.0, 5),
-                  blurRadius: 2,
-                )
-              ],
               borderRadius: BorderRadius.circular(15),
               color: myCategory.colorCode == null
                   ? Colors.red
