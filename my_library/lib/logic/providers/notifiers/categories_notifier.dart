@@ -99,10 +99,7 @@ class CategoriesNotifier extends StateNotifier<AsyncValue<List<MyCategory>>> {
         .where((element) => element.containerCatId == containerCatId)
         .toList();
     for (var card in cardsToDelete) {
-      for (var imageUrl in card.imageUrls!) {
-        await read(storageRepository).deleteFile(url: imageUrl);
-      }
-      await read(dataStoreRepository).deleteCard(id: card.id);
+      read(cardsNotifier.notifier).deleteCard(myCard: card);
     }
   }
 
