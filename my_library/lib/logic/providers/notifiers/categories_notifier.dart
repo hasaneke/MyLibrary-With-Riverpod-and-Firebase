@@ -32,13 +32,13 @@ class CategoriesNotifier extends StateNotifier<AsyncValue<List<MyCategory>>> {
     read(cardsNotifier.notifier).fetchCards();
   }
   Reader read;
-  List<MyCategory> _allCategories = [];
+  List<MyCategory> _controlCatList = [];
+  List<MyCard> _controlCardList = [];
   Future<void> fetchCategories() async {
     try {
-      log('Fetched!');
       var fetchedCategories = await read(dataStoreRepository).fetchCategories();
       state = AsyncData(fetchedCategories);
-      _allCategories = fetchedCategories;
+      _controlCatList = fetchedCategories;
     } on Exception catch (e) {
       read(dataExceptionProvider.notifier).state =
           DataException(message: e.toString());
@@ -47,20 +47,10 @@ class CategoriesNotifier extends StateNotifier<AsyncValue<List<MyCategory>>> {
 
   Future<void> addCategory({required MyCategory myCategory}) async {
     try {
-      if (myCategory.containerCatId != null) {
-        final containerCategory = state.value!.firstWhere(
-            (element) => element.uniqueId == myCategory.containerCatId);
-
-        updateCategory(
-            myCategory: containerCategory.copyWith(subCategoriesIds: [
-          ...?containerCategory.subCategoriesIds,
-          myCategory.uniqueId
-        ]));
-      }
       state = state.whenData((categories) => [...categories, myCategory]);
-      await read(dataStoreRepository).addCategory(myCategory: myCategory);
+      _controlCatList = state.asData!.value;
 
-      _allCategories = [..._allCategories, myCategory];
+      await read(dataStoreRepository).addCategory(myCategory: myCategory);
     } on Exception catch (e) {
       read(dataExceptionProvider.notifier).state =
           DataException(message: e.toString());
@@ -69,7 +59,6 @@ class CategoriesNotifier extends StateNotifier<AsyncValue<List<MyCategory>>> {
 
   Future<void> updateCategory({required MyCategory myCategory}) async {
     try {
-      print(myCategory.cardsIds);
       await read(dataStoreRepository).updateCategory(myCategory: myCategory);
       state = state.whenData((categories) => categories.map((category) {
             if (category.uniqueId == myCategory.uniqueId) {
@@ -78,13 +67,7 @@ class CategoriesNotifier extends StateNotifier<AsyncValue<List<MyCategory>>> {
               return category;
             }
           }).toList());
-      _allCategories = _allCategories.map((category) {
-        if (category.uniqueId == myCategory.uniqueId) {
-          return myCategory;
-        } else {
-          return category;
-        }
-      }).toList();
+      _controlCatList = state.asData!.value;
     } on Exception catch (e) {
       read(dataExceptionProvider.notifier).state =
           DataException(message: e.toString());
@@ -92,43 +75,30 @@ class CategoriesNotifier extends StateNotifier<AsyncValue<List<MyCategory>>> {
   }
 
   Future<void> deleteCategory({required MyCategory myCategory}) async {
-    if (myCategory.subCategoriesIds!.isNotEmpty) {
-      await _deleteSubCategories(myCategory: myCategory);
-    }
-    if (myCategory.cardsIds!.isNotEmpty) {
-      await _clearCards(cardIds: myCategory.cardsIds!);
-    }
-    await read(dataStoreRepository).deleteCategory(id: myCategory.uniqueId);
-    if (myCategory.containerCatId != null) {
-      final contCat = state.value!.firstWhere(
-          (element) => element.uniqueId == myCategory.containerCatId);
-      updateCategory(
-          myCategory: contCat.copyWith(
-              subCategoriesIds: contCat.subCategoriesIds!
-                  .where((element) => element != myCategory.uniqueId)
-                  .toList()));
-    }
+    _controlCardList = read(cardsNotifier.notifier).state.value!;
+    await _recrusiveDeletion(myCategory: myCategory);
 
-    state = state.whenData((data) => data
-        .where((element) => element.uniqueId != myCategory.uniqueId)
-        .toList());
+    state = AsyncData(_controlCatList);
   }
 
-  Future<void> _deleteSubCategories({required MyCategory myCategory}) async {
-    for (var subCatId in myCategory.subCategoriesIds!) {
-      final category =
-          _allCategories.firstWhere((element) => element.uniqueId == subCatId);
-      await _clearCards(cardIds: category.cardsIds!);
-      await _deleteSubCategories(myCategory: category);
-    }
-    await read(dataStoreRepository).deleteCategory(id: myCategory.uniqueId);
-  }
-
-  Future<void> _clearCards({required List<String> cardIds}) async {
-    List<MyCard> cards = read(allCardsProvider)
-        .where((element) => cardIds.contains(element.id))
+  Future<void> _recrusiveDeletion({required MyCategory myCategory}) async {
+    List<MyCategory> _subCats = _controlCatList
+        .where((subCat) => subCat.containerCatId == myCategory.uniqueId)
         .toList();
-    for (var card in cards) {
+    for (var subCat in _subCats) {
+      _recrusiveDeletion(myCategory: subCat);
+    }
+
+    await _clearCards(containerCatId: myCategory.uniqueId);
+    await read(dataStoreRepository).deleteCategory(id: myCategory.uniqueId);
+    _controlCatList.remove(myCategory);
+  }
+
+  Future<void> _clearCards({required String containerCatId}) async {
+    final cardsToDelete = _controlCardList
+        .where((element) => element.containerCatId == containerCatId)
+        .toList();
+    for (var card in cardsToDelete) {
       for (var imageUrl in card.imageUrls!) {
         await read(storageRepository).deleteFile(url: imageUrl);
       }

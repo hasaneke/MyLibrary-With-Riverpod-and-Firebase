@@ -1,12 +1,7 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/core/fonts/font_styles.dart';
-
 import 'package:my_library/data/models/my_category.dart';
-import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
 import 'package:my_library/logic/providers/state_providers/data_providers.dart';
 import 'package:my_library/presentation/widgets/my_app_bar/controller/my_app_bar_controller.dart';
 

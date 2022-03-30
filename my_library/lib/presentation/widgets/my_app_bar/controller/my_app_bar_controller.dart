@@ -65,34 +65,14 @@ class MyAppbarController extends ChangeNotifier {
   }
 
   Future<void> moveTo({required MyCategory category}) async {
-    for (var cat in _selectedCategories) {
-      final contCat = read(allCategoriesProvider)
-          .firstWhere((element) => element.uniqueId == cat.containerCatId);
-      contCat.subCategoriesIds!.remove(cat.uniqueId);
-      read(categoriesNotifier.notifier).updateCategory(myCategory: contCat);
+    for (var cat in selectedCategories) {
       read(categoriesNotifier.notifier).updateCategory(
           myCategory: cat.copyWith(containerCatId: category.uniqueId));
     }
-    for (var card in _selectedCards) {
-      final contCat = read(allCategoriesProvider)
-          .firstWhere((element) => element.uniqueId == card.containerCatId);
-      contCat.cardsIds!.remove(card.id);
-      read(categoriesNotifier.notifier).updateCategory(myCategory: contCat);
-
+    for (var card in selectedCards) {
       read(cardsNotifier.notifier).updateCard(
           updatedCard: card.copyWith(containerCatId: category.uniqueId));
     }
-    read(categoriesNotifier.notifier).updateCategory(
-        myCategory: category.copyWith(subCategoriesIds: [
-      ...?category.subCategoriesIds,
-      ..._selectedCategories
-          .map((e) => e.uniqueId)
-          .where((element) => !category.subCategoriesIds!.contains(element))
-          .toList()
-    ], cardsIds: [
-      ...?category.cardsIds,
-      ..._selectedCards.map((e) => e.id).toList()
-    ]));
     changeAppbar();
     notifyListeners();
   }
