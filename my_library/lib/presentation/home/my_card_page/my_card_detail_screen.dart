@@ -186,7 +186,7 @@ class CardDetailScreen extends HookConsumerWidget {
               )
             : Container(),
         myCard.longExp!.isNotEmpty
-            ? TextForCard(text: myCard.title!)
+            ? TextForCard(text: myCard.longExp!)
             : Container(),
       ],
     );

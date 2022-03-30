@@ -7,7 +7,6 @@ import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/data/repository/storage/storage_repository.dart';
 import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
 import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
-import 'package:my_library/logic/providers/state_providers/data_providers.dart';
 import 'package:my_library/logic/providers/state_providers/expection_providers.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:storage_service/network/storage_service.dart';
@@ -32,7 +31,6 @@ class CardsNotifier extends StateNotifier<AsyncValue<List<MyCard>>> {
 
   Future<void> fetchCards() async {
     try {
-      log('cards fetched');
       List<MyCard> cards = await read(dataStoreRepository).fetchCards();
       state = AsyncValue.data(cards);
     } on Exception catch (e) {
@@ -45,14 +43,9 @@ class CardsNotifier extends StateNotifier<AsyncValue<List<MyCard>>> {
   Future<void> addCard(
       {required Map<String, String> values, List<File>? imageFiles}) async {
     try {
-      final containerCategory = read(allCategoriesProvider).firstWhere(
-          (element) => element.uniqueId == values['containerCatId']);
-      await read(categoriesNotifier.notifier).updateCategory(
-          myCategory: containerCategory.copyWith(
-              cardsIds: [...?containerCategory.cardsIds, values['id']!]));
       List<String> imageUrls = await read(storageRepository)
           .uploadFilesAndGetTheUrls(files: imageFiles!);
-      log(values['id']!);
+
       final newCard = MyCard.create(
           id: values['id']!,
           containerCatId: values['containerCatId']!,
@@ -85,20 +78,12 @@ class CardsNotifier extends StateNotifier<AsyncValue<List<MyCard>>> {
 
   Future<void> deleteCard({required MyCard myCard}) async {
     try {
-      final containerCategory = read(allCategoriesProvider)
-          .firstWhere((element) => element.cardsIds!.contains(myCard.id));
-      log(containerCategory.title!);
-
       final card =
           state.asData!.value.firstWhere((element) => element.id == myCard.id);
       for (var imageUrl in card.imageUrls!) {
         await read(storageRepository).deleteFile(url: imageUrl);
       }
-      await read(categoriesNotifier.notifier).updateCategory(
-          myCategory: containerCategory.copyWith(
-              cardsIds: containerCategory.cardsIds!
-                  .where((element) => element != myCard.id)
-                  .toList()));
+
       await read(dataStoreRepository).deleteCard(id: myCard.id);
       state = state.whenData((cards) =>
           cards.where((element) => element.id != myCard.id).toList());
@@ -110,7 +95,6 @@ class CardsNotifier extends StateNotifier<AsyncValue<List<MyCard>>> {
 
   @override
   void dispose() {
-    log('cards disposed!');
     super.dispose();
   }
 }
