@@ -9,7 +9,7 @@ class GoogleButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialButton(
-      elevation: 8.0,
+      elevation: 4.0,
       height: 60,
       color: Theme.of(context).backgroundColor,
       onPressed: () async {

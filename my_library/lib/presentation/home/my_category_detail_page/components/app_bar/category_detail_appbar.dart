@@ -6,6 +6,7 @@ import 'package:my_library/data/models/my_category.dart';
 import 'package:my_library/presentation/home/my_category_detail_page/components/app_bar/controller/category_detail_appbar_controller.dart';
 import 'package:my_library/presentation/widgets/add_category_dialog.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:my_library/presentation/widgets/my_app_bar/my_app_bar.dart';
 
 class CategoryDetailAppbar extends HookConsumerWidget {
   final MyCategory myCategory;
@@ -23,7 +24,7 @@ class CategoryDetailAppbar extends HookConsumerWidget {
     final controller = ref.read(categoryDetailAppBarController);
     final textEditingController =
         useTextEditingController(text: myCategory.title!);
-    return AppBar(
+    return MyAppBar(
       title: Center(child: Consumer(
         builder: (context, ref, child) {
           final editTitle = ref.watch(categoryDetailAppBarController).editTitle;
@@ -63,9 +64,6 @@ class CategoryDetailAppbar extends HookConsumerWidget {
                   : Text(myCategory.title!));
         },
       )),
-      foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
-      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-      elevation: 0,
       actions: [
         IconButton(
           onPressed: () => {

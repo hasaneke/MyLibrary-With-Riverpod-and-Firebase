@@ -10,6 +10,7 @@ import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
 import 'package:my_library/presentation/home/tab_bar_page/all_cards_page/all_cards_screen.dart';
 import 'package:my_library/presentation/home/tab_bar_page/home_page/home_screen.dart';
 import 'package:my_library/presentation/home/tab_bar_page/marked_cards_page/marked_screen.dart';
+import 'package:my_library/presentation/widgets/my_app_bar/controller/my_app_bar_controller.dart';
 
 class TabScreen extends HookConsumerWidget {
   const TabScreen({Key? key}) : super(key: key);
@@ -57,36 +58,48 @@ class TabView extends StatelessWidget {
           const AllCardsScreen()
         ],
       ),
-      bottomNavigationBar: GFTabBar(
-        tabBarColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-        length: 3,
-        controller: tabController,
-        labelColor: Theme.of(context).textTheme.bodyText1!.color,
-        unselectedLabelStyle:
-            const TextStyle(color: Colors.white30, fontSize: 9),
-        tabBarHeight: MediaQuery.of(context).size.height * 0.090,
-        tabs: [
-          Tab(
-              child: const Text('Home'),
-              icon: Icon(
-                Icons.home,
-                color: Theme.of(context).iconTheme.color,
-              )),
-          Tab(
-            text: 'Marked',
-            icon: Icon(
-              Icons.bookmark,
-              color: Theme.of(context).iconTheme.color,
-            ),
-          ),
-          Tab(
-            text: 'All Cards',
-            icon: Icon(
-              Icons.all_inbox,
-              color: Theme.of(context).iconTheme.color,
-            ),
-          ),
-        ],
+      bottomNavigationBar: Consumer(
+        builder: (context, ref, child) {
+          final isAnyItemLongPressed = ref.watch(
+              myAppBarController.select((value) => value.isAnyItemLongPressed));
+          return isAnyItemLongPressed
+              ? Container(
+                  height: 0,
+                )
+              : GFTabBar(
+                  tabBarColor: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .backgroundColor,
+                  length: 3,
+                  controller: tabController,
+                  labelColor: Theme.of(context).textTheme.bodyText1!.color,
+                  unselectedLabelStyle:
+                      const TextStyle(color: Colors.white30, fontSize: 9),
+                  tabBarHeight: MediaQuery.of(context).size.height * 0.090,
+                  tabs: [
+                    Tab(
+                        child: const Text('Home'),
+                        icon: Icon(
+                          Icons.home,
+                          color: Theme.of(context).iconTheme.color,
+                        )),
+                    Tab(
+                      text: 'Marked',
+                      icon: Icon(
+                        Icons.bookmark,
+                        color: Theme.of(context).iconTheme.color,
+                      ),
+                    ),
+                    Tab(
+                      text: 'All Cards',
+                      icon: Icon(
+                        Icons.all_inbox,
+                        color: Theme.of(context).iconTheme.color,
+                      ),
+                    ),
+                  ],
+                );
+        },
       ),
     );
   }

@@ -16,7 +16,6 @@ class MyCategoryGridView extends HookConsumerWidget {
     List<MyCategoryItem> convertedToWidgetsList = categories.map((category) {
       return MyCategoryItem(
         myCategory: category,
-        longPressed: () {},
       );
     }).toList();
 

@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_library/logic/providers/state_providers/expection_providers.dart';
 import 'package:my_library/presentation/home/tab_bar_page/home_page/widgets/drawer/my_drawer.dart';
 import 'package:my_library/presentation/widgets/add_category_dialog.dart';
+import 'package:my_library/presentation/widgets/my_app_bar/my_app_bar.dart';
 import 'package:my_library/presentation/widgets/my_category_gridview.dart';
 
 class HomeScreen extends HookConsumerWidget {
@@ -23,10 +24,7 @@ class HomeScreen extends HookConsumerWidget {
     });
 
     return Scaffold(
-      appBar: AppBar(
-        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        elevation: 0,
+      appBar: MyAppBar(
         title: Center(
           child: SizedBox(
               height: 45,

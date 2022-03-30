@@ -84,7 +84,6 @@ class CategoryDetailScreen extends HookConsumerWidget {
         var card = myCards.elementAt(index);
         return MyCardItem(
           myCard: card,
-          onLongPressed: () {},
         );
       },
       itemCount: myCards.length,

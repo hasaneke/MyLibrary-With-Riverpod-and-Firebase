@@ -14,8 +14,8 @@ abstract class Themes {
       backgroundColor: Colors.lime[50],
     ),
     buttonTheme: const ButtonThemeData(buttonColor: Colors.white),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Colors.white,
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Colors.lime[50],
         unselectedItemColor: Colors.white24,
         unselectedIconTheme: IconThemeData(color: Colors.white24)),
     appBarTheme: AppBarTheme(
@@ -31,7 +31,7 @@ abstract class Themes {
       backgroundColor:
           MaterialStateProperty.all<Color>(Colors.lime[50] ?? Colors.red),
     )),
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.lime[50],
     textTheme: const TextTheme(
         bodyText1: TextStyle(color: Colors.black, fontSize: 20),
         bodyText2: TextStyle(color: Colors.black, fontSize: 15),

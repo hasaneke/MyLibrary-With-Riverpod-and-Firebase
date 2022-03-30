@@ -69,6 +69,7 @@ class CategoriesNotifier extends StateNotifier<AsyncValue<List<MyCategory>>> {
 
   Future<void> updateCategory({required MyCategory myCategory}) async {
     try {
+      print(myCategory.cardsIds);
       await read(dataStoreRepository).updateCategory(myCategory: myCategory);
       state = state.whenData((categories) => categories.map((category) {
             if (category.uniqueId == myCategory.uniqueId) {
@@ -98,6 +99,15 @@ class CategoriesNotifier extends StateNotifier<AsyncValue<List<MyCategory>>> {
       await _clearCards(cardIds: myCategory.cardsIds!);
     }
     await read(dataStoreRepository).deleteCategory(id: myCategory.uniqueId);
+    if (myCategory.containerCatId != null) {
+      final contCat = state.value!.firstWhere(
+          (element) => element.uniqueId == myCategory.containerCatId);
+      updateCategory(
+          myCategory: contCat.copyWith(
+              subCategoriesIds: contCat.subCategoriesIds!
+                  .where((element) => element != myCategory.uniqueId)
+                  .toList()));
+    }
 
     state = state.whenData((data) => data
         .where((element) => element.uniqueId != myCategory.uniqueId)

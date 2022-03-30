@@ -5,9 +5,9 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
    <application
-        android:label="my_library"
+        android:label="My Library"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/my_library_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
