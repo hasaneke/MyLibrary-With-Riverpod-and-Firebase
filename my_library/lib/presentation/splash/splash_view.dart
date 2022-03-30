@@ -43,7 +43,6 @@ class _SplashView2State extends ConsumerState<SplashView> {
   void initApp() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
-
     await ref.read(authNotifier.notifier).getCurrentUser();
     final user = ref.read(authNotifier);
 

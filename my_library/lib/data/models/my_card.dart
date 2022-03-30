@@ -71,4 +71,27 @@ class MyCard {
   factory MyCard.fromJson(String source) => MyCard.fromMap(json.decode(source));
 
   Future<void> fetchImages(List<String> imagesUrls) async {}
+
+  MyCard copyWith({
+    String? id,
+    String? containerCatId,
+    String? title,
+    String? shortExp,
+    String? longExp,
+    bool? isMarked,
+    DateTime? createdAt,
+    List<String>? imageUrls,
+    List<Image>? images,
+  }) {
+    return MyCard(
+      id: id ?? this.id,
+      containerCatId: containerCatId ?? this.containerCatId,
+      title: title ?? this.title,
+      shortExp: shortExp ?? this.shortExp,
+      longExp: longExp ?? this.longExp,
+      isMarked: isMarked ?? this.isMarked,
+      createdAt: createdAt ?? this.createdAt,
+      imageUrls: imageUrls ?? this.imageUrls,
+    );
+  }
 }

@@ -88,7 +88,7 @@ class DataService implements IDataService {
     final Map<String, dynamic> card = jsonDecode(json);
     await fire_store.FirebaseFirestore.instance
         .collection(_pathToCards)
-        .doc(card['unique_id'])
+        .doc(card['id'])
         .update(jsonDecode(json));
   }
 

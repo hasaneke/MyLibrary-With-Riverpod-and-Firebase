@@ -57,7 +57,7 @@ class MyCardDetailScreenController extends ChangeNotifier {
         log('edit card');
         break;
       case 'delete':
-        await read(cardsNotifier.notifier).deleteCard(id: myCard.id);
+        await read(cardsNotifier.notifier).deleteCard(myCard: myCard);
     }
   }
 }

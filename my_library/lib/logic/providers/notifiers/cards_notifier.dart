@@ -83,25 +83,25 @@ class CardsNotifier extends StateNotifier<AsyncValue<List<MyCard>>> {
     }
   }
 
-  Future<void> deleteCard({required String id}) async {
+  Future<void> deleteCard({required MyCard myCard}) async {
     try {
       final containerCategory = read(allCategoriesProvider)
-          .firstWhere((element) => element.cardsIds!.contains(id));
+          .firstWhere((element) => element.cardsIds!.contains(myCard.id));
       log(containerCategory.title!);
 
       final card =
-          state.asData!.value.firstWhere((element) => element.id == id);
+          state.asData!.value.firstWhere((element) => element.id == myCard.id);
       for (var imageUrl in card.imageUrls!) {
         await read(storageRepository).deleteFile(url: imageUrl);
       }
       await read(categoriesNotifier.notifier).updateCategory(
           myCategory: containerCategory.copyWith(
               cardsIds: containerCategory.cardsIds!
-                  .where((element) => element != id)
+                  .where((element) => element != myCard.id)
                   .toList()));
-      await read(dataStoreRepository).deleteCard(id: id);
-      state = state.whenData(
-          (cards) => cards.where((element) => element.id != id).toList());
+      await read(dataStoreRepository).deleteCard(id: myCard.id);
+      state = state.whenData((cards) =>
+          cards.where((element) => element.id != myCard.id).toList());
     } on Exception catch (e) {
       read(dataExceptionProvider.notifier).state =
           DataException(message: e.toString());

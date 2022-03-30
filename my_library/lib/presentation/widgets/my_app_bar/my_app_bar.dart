@@ -1,10 +1,6 @@
-import 'dart:developer';
-
-import 'package:auto_route/annotations.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
+import 'package:my_library/presentation/widgets/move_dialog/move_dialog.dart';
 import 'package:my_library/presentation/widgets/my_app_bar/controller/my_app_bar_controller.dart';
 
 class MyAppBar extends HookConsumerWidget implements PreferredSizeWidget {
@@ -12,8 +8,12 @@ class MyAppBar extends HookConsumerWidget implements PreferredSizeWidget {
   final bool? centerTitle;
   final List<Widget>? actions;
 
-  const MyAppBar({Key? key, this.title, this.actions, this.centerTitle})
-      : super(key: key);
+  const MyAppBar({
+    Key? key,
+    this.title,
+    this.actions,
+    this.centerTitle,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,7 +21,7 @@ class MyAppBar extends HookConsumerWidget implements PreferredSizeWidget {
       builder: (context, ref, child) {
         final isAnyItemLongPressed = ref.watch(
             myAppBarController.select((value) => value.isAnyItemLongPressed));
-        log('?');
+        final controller = ref.read(myAppBarController);
         return WillPopScope(
             child: isAnyItemLongPressed
                 ? AppBar(
@@ -40,18 +40,28 @@ class MyAppBar extends HookConsumerWidget implements PreferredSizeWidget {
                       Padding(
                         padding: const EdgeInsets.only(right: 15),
                         child: Row(
-                          children: const [
-                            Tab(
-                              icon: Icon(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (_) => MoveDialog());
+                              },
+                              icon: const Icon(
                                 Icons.keyboard_arrow_right_outlined,
                                 size: 30,
                               ),
                             ),
                             SizedBox(width: 25),
-                            Icon(
-                              Icons.delete_outline,
-                              size: 30,
-                            ),
+                            IconButton(
+                              onPressed: () {
+                                controller.deleteTheItems();
+                              },
+                              icon: Icon(
+                                Icons.delete_outline,
+                                size: 30,
+                              ),
+                            )
                           ],
                         ),
                       ),
