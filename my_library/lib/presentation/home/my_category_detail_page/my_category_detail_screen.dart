@@ -17,11 +17,11 @@ class CategoryDetailScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final myCards = ref
-        .read(allCardsProvider)
+        .watch(allCardsProvider)
         .where((card) => card.containerCatId == myCategory.uniqueId)
         .toList();
     final subCategories = ref
-        .read(allCategoriesProvider)
+        .watch(allCategoriesProvider)
         .where((element) => element.containerCatId == myCategory.uniqueId)
         .toList();
     return Scaffold(

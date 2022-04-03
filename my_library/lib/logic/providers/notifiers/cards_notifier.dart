@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 import 'package:data_service/exceptions/data_exception.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/data/models/my_category.dart';
 import 'package:my_library/logic/providers/notifiers/cards_notifier.dart';
 import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
-import 'package:my_library/logic/providers/state_providers/data_providers.dart';
 
 final myAppBarController = ChangeNotifierProvider<MyAppbarController>((ref) {
   return MyAppbarController(ref.read);

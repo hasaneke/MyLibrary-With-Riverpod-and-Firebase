@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_library/data/models/my_card.dart';
@@ -18,15 +19,16 @@ class MyCardDetailScreenController extends ChangeNotifier {
   }
 
   /*  OTHER VARIABLES */
-  List<Image> images = [];
-  Image? tappedImage;
+  List<CachedNetworkImage> images = [];
+  CachedNetworkImage? tappedImage;
   bool isImageClicked = false;
   Future<void> initializeImages() async {
-    images = myCard.imageUrls!.map((e) => Image.network(e)).toList();
+    images =
+        myCard.imageUrls!.map((e) => CachedNetworkImage(imageUrl: e)).toList();
   }
 
   /* **************** */
-  displayTappedImage(Image image) {
+  displayTappedImage(CachedNetworkImage image) {
     isImageClicked = !isImageClicked;
 
     tappedImage = image;

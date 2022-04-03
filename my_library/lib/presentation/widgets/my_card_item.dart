@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -9,8 +8,8 @@ import 'package:my_library/presentation/widgets/my_app_bar/controller/my_app_bar
 import '../../data/models/my_card.dart';
 
 class MyCardItem extends ConsumerWidget {
-  MyCard myCard;
-  MyCardItem({required this.myCard});
+  final MyCard myCard;
+  const MyCardItem({Key? key, required this.myCard}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.read(myAppBarController);
@@ -27,7 +26,7 @@ class MyCardItem extends ConsumerWidget {
               margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
               elevation: 5,
               child: ListTile(
-                selectedTileColor: Color.fromARGB(255, 211, 195, 195),
+                selectedTileColor: const Color.fromARGB(255, 211, 195, 195),
                 selected: isSelected,
                 onLongPress: () {
                   if (isAnyItemLongPressed) {
@@ -48,7 +47,8 @@ class MyCardItem extends ConsumerWidget {
                 leading: myCard.imageUrls!.isNotEmpty
                     ? CircleAvatar(
                         backgroundColor: Colors.white,
-                        child: Image.network(myCard.imageUrls!.first),
+                        child: CachedNetworkImage(
+                            imageUrl: myCard.imageUrls!.first),
                       )
                     : null,
                 title: Text(

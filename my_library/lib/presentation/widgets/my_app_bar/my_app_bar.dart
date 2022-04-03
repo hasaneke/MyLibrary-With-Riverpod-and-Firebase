@@ -45,19 +45,19 @@ class MyAppBar extends HookConsumerWidget implements PreferredSizeWidget {
                               onPressed: () {
                                 showDialog(
                                     context: context,
-                                    builder: (_) => MoveDialog());
+                                    builder: (_) => const MoveDialog());
                               },
                               icon: const Icon(
                                 Icons.keyboard_arrow_right_outlined,
                                 size: 30,
                               ),
                             ),
-                            SizedBox(width: 25),
+                            const SizedBox(width: 25),
                             IconButton(
                               onPressed: () {
                                 controller.deleteTheItems();
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.delete_outline,
                                 size: 30,
                               ),
@@ -93,6 +93,5 @@ class MyAppBar extends HookConsumerWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => AppBar().preferredSize;
 }

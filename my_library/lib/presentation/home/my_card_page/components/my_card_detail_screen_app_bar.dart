@@ -62,7 +62,7 @@ class MyCardDetailScreenAppBar extends StatelessWidget {
                       break;
                     case 'move':
                       showDialog(
-                          context: context, builder: (_) => MoveDialog());
+                          context: context, builder: (_) => const MoveDialog());
                       break;
                   }
                 },

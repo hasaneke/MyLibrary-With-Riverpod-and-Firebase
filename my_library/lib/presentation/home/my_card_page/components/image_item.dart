@@ -15,7 +15,6 @@ class ImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => controller.displayTappedImage(image),
       child: Row(
         children: [
           const SizedBox(

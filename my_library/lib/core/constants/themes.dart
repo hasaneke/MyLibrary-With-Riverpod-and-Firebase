@@ -17,7 +17,7 @@ abstract class Themes {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Colors.lime[50],
         unselectedItemColor: Colors.white24,
-        unselectedIconTheme: IconThemeData(color: Colors.white24)),
+        unselectedIconTheme: const IconThemeData(color: Colors.white24)),
     appBarTheme: AppBarTheme(
         backgroundColor: Colors.lime[50], foregroundColor: Colors.black),
     fontFamily: FontStyles.selectedFont,

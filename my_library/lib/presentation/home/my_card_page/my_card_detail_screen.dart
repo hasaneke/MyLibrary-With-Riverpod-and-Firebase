@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:my_library/data/models/my_card.dart';
-import 'package:my_library/presentation/home/my_card_page/components/image_item.dart';
 import 'package:my_library/presentation/home/my_card_page/components/my_card_detail_screen_app_bar.dart';
 import 'package:my_library/presentation/home/my_card_page/components/text_for_card.dart';
 import 'package:my_library/presentation/home/my_card_page/controller/my_card_detail_screen_controller.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 // ignore: must_be_immutable, use_key_in_widget_constructors
 class CardDetailScreen extends HookConsumerWidget {
@@ -22,31 +22,34 @@ class CardDetailScreen extends HookConsumerWidget {
       body: Stack(children: [
         GestureDetector(
           onTap: () => controller.undisplayTappedImage(),
-          child: Consumer(
-            builder: (context, ref, child) {
-              final isImageClicked = ref.watch(
-                  myCardDetailScreenController(myCard)
-                      .select((value) => value.isImageClicked));
-              log('pü');
-              return Opacity(
-                opacity: isImageClicked ? 0.45 : 1,
-                child: Column(children: [
-                  MyCardDetailScreenAppBar(
-                      myCard: myCard, controller: controller),
-                  myCard.title!.isEmpty &&
-                          myCard.shortExp!.isEmpty &&
-                          myCard.longExp!.isEmpty
-                      ? Consumer(builder: ((context, ref, child) {
-                          final images = ref
-                              .watch(
-                                  myCardDetailScreenController(myCard).notifier)
-                              .images;
-                          return body1(images, controller);
-                        }))
-                      : body2(context, controller),
-                ]),
-              );
-            },
+          child: Container(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            height: MediaQuery.of(context).size.height,
+            child: Consumer(
+              builder: (context, ref, child) {
+                final isImageClicked = ref.watch(
+                    myCardDetailScreenController(myCard)
+                        .select((value) => value.isImageClicked));
+                return Opacity(
+                  opacity: isImageClicked ? 0.45 : 1,
+                  child: Column(children: [
+                    MyCardDetailScreenAppBar(
+                        myCard: myCard, controller: controller),
+                    myCard.title!.isEmpty &&
+                            myCard.shortExp!.isEmpty &&
+                            myCard.longExp!.isEmpty
+                        ? Consumer(builder: ((context, ref, child) {
+                            final images = ref
+                                .watch(myCardDetailScreenController(myCard)
+                                    .notifier)
+                                .images;
+                            return body1(images, controller);
+                          }))
+                        : body2(context, controller),
+                  ]),
+                );
+              },
+            ),
           ),
         ),
         Consumer(
@@ -62,16 +65,17 @@ class CardDetailScreen extends HookConsumerWidget {
                     right: 0,
                     top: 0,
                     child: Center(
-                      child: InteractiveViewer(
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.7,
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          child: Container(
-                            child: controller.tappedImage,
-                          ),
-                        ),
+                        child: InteractiveViewer(
+                      clipBehavior: Clip.none,
+                      child: CachedNetworkImage(
+                        maxHeightDiskCache:
+                            (MediaQuery.of(context).size.height * 0.8).toInt(),
+                        maxWidthDiskCache:
+                            (MediaQuery.of(context).size.width * 0.9).toInt(),
+                        fit: BoxFit.contain,
+                        imageUrl: controller.tappedImage!.imageUrl,
                       ),
-                    ),
+                    )),
                   )
                 : Container();
           },
@@ -80,7 +84,8 @@ class CardDetailScreen extends HookConsumerWidget {
     );
   }
 
-  Expanded body1(List<Image> images, MyCardDetailScreenController controller) {
+  Expanded body1(List<CachedNetworkImage> images,
+      MyCardDetailScreenController controller) {
     return Expanded(
       child: images.length > 1
           ? SizedBox(
@@ -89,17 +94,14 @@ class CardDetailScreen extends HookConsumerWidget {
                 scrollDirection: Axis.horizontal,
                 children: images
                     .map(
-                      (image) => ImageWidget(
-                          image: image,
-                          controller: controller,
-                          myCard: myCard), // IMAGE FILE WIDGET
+                      (image) => image, // IMAGE FILE WIDGET
                     )
                     .toList(),
               ),
             )
           : Center(
               child: myCard.imageUrls!.isNotEmpty
-                  ? Image.network(myCard.imageUrls!.first)
+                  ? controller.images.first
                   : Container(),
             ),
     );
@@ -153,20 +155,15 @@ class CardDetailScreen extends HookConsumerWidget {
                   height: 250,
                   child: Consumer(
                     builder: (context, ref, child) {
-                      final images = ref
-                          .watch(myCardDetailScreenController(myCard).notifier)
-                          .images;
                       return ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: images
-                            .map(
-                              (image) => ImageWidget(
-                                  image: image,
-                                  controller: controller,
-                                  myCard: myCard),
-                            )
-                            .toList(),
-                      );
+                          scrollDirection: Axis.horizontal,
+                          children: controller.images
+                              .map((e) => GestureDetector(
+                                    onTap: () =>
+                                        controller.displayTappedImage(e),
+                                    child: e,
+                                  ))
+                              .toList());
                     },
                   ),
                 ),
