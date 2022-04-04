@@ -1,24 +1,25 @@
-import 'dart:developer';
-
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
+import 'package:my_library/logic/navigation/route.gr.dart';
 import 'package:my_library/presentation/auth/sign_up_page/controller/sign_up_controller.dart';
 
 // ignore: use_key_in_widget_constructors
 class SignUpScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    String email = ' ';
+    String password = ' ';
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         elevation: 0,
-
-        // backgroundColor: context.theme.scaffoldBackgroundColor,
       ),
       body: Center(
         child: Form(
+          key: ref.watch(signUpController).formKey,
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -46,44 +47,43 @@ class SignUpScreen extends HookConsumerWidget {
                           keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(hintText: 'email'),
                           onSaved: (value) {
-                            //controller.email.value = value!;
+                            email = value!;
                           },
                         ),
                         TextFormField(
-                          //controller: controller.passwordController,
                           obscureText: true,
                           decoration:
                               const InputDecoration(hintText: 'password'),
-                          // validator: (value) {
-                          //   if (value!.length < 6) {
-                          //     Get.showSnackbar(
-                          //       const GetSnackBar(
-                          //         message:
-                          //             'Invaild Password(must be at least 6 charachter long)',
-                          //         duration: Duration(seconds: 3),
-                          //       ),
-                          //     );
-                          //     return 'invalid password';
-                          //   }
-                          //   return null;
-                          // },
-                          // onSaved: (value) {
-                          //   controller.password.value = value!;
-                          // },
+                          validator: (value) {
+                            if (value!.length < 6) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text(
+                                    'Invaild Password(must be at least 6 charachter long)'),
+                                duration: Duration(seconds: 2),
+                              ));
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            password = password;
+                          },
                         ),
                         TextFormField(
                           obscureText: true,
                           decoration:
                               const InputDecoration(hintText: 'password_again'),
-                          // validator: (value) {
-                          //   if (value != controller.passwordController.text) {
-                          //     Get.showSnackbar(GetSnackBar(
-                          //         message: 'passwords_are_not_matched'.tr,
-                          //         duration: const Duration(seconds: 1)));
-                          //     return 'error';
-                          //   }
-                          //   return null;
-                          // },
+                          validator: (value) {
+                            if (value != ref.watch(signUpController).password) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text('Passwords are not mathced'),
+                                duration: Duration(seconds: 2),
+                              ));
+                              return 'error';
+                            }
+                            return null;
+                          },
                         ),
                       ],
                     ),
@@ -93,9 +93,10 @@ class SignUpScreen extends HookConsumerWidget {
                   padding: const EdgeInsets.only(top: 10),
                   child: Consumer(
                     builder: (context, ref, child) {
-                      bool isSignUp = ref.watch(signUpController).isSigningUp;
+                      bool isSignin = ref.watch(
+                          signUpController.select((value) => value.isSigninIn));
 
-                      return isSignUp
+                      return isSignin
                           ? const CircularProgressIndicator(
                               color: Colors.black,
                             )
@@ -105,13 +106,10 @@ class SignUpScreen extends HookConsumerWidget {
                               onPressed: () async {
                                 await ref
                                     .read(signUpController.notifier)
-                                    .signUp(
-                                        email: 'hasaneke1000@gmail.com',
-                                        password: '6145450fb');
-                                if (ref.read(authNotifier) != null) {
-                                  log('Sign up succesfull');
-                                } else {
-                                  log('what happened?');
+                                    .signUp(email: email, password: password);
+                                if (ref.watch(signUpController).isSuccess) {
+                                  AutoRouter.of(context).replace(
+                                      const EmailVertificationLobbyScreen());
                                 }
                               },
                               child: Text('Sign Up',

@@ -10,11 +10,13 @@
 //
 // ignore_for_file: type=lint
 
-import 'package:auto_route/auto_route.dart' as _i9;
-import 'package:flutter/material.dart' as _i10;
+import 'package:auto_route/auto_route.dart' as _i10;
+import 'package:flutter/material.dart' as _i11;
 
-import '../../data/models/my_card.dart' as _i12;
-import '../../data/models/my_category.dart' as _i11;
+import '../../data/models/my_card.dart' as _i13;
+import '../../data/models/my_category.dart' as _i12;
+import '../../presentation/auth/email_vertification_screen/email_vertification_lobby_screen.dart'
+    as _i9;
 import '../../presentation/auth/login/login_screen.dart' as _i3;
 import '../../presentation/auth/reset_password_page/reset_password_screen.dart'
     as _i5;
@@ -26,72 +28,78 @@ import '../../presentation/home/my_category_detail_page/my_category_detail_scree
 import '../../presentation/home/tab_bar_page/tab_bar_screen.dart' as _i2;
 import '../../presentation/splash/splash_view.dart' as _i1;
 
-class AppRouter extends _i9.RootStackRouter {
-  AppRouter([_i10.GlobalKey<_i10.NavigatorState>? navigatorKey])
+class AppRouter extends _i10.RootStackRouter {
+  AppRouter([_i11.GlobalKey<_i11.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i9.PageFactory> pagesMap = {
+  final Map<String, _i10.PageFactory> pagesMap = {
     SplashView.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
+      return _i10.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i1.SplashView());
     },
     TabScreen.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
+      return _i10.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i2.TabScreen());
     },
     LoginScreen.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
+      return _i10.MaterialPageX<dynamic>(
           routeData: routeData, child: _i3.LoginScreen());
     },
     SignUpScreen.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
+      return _i10.MaterialPageX<dynamic>(
           routeData: routeData, child: _i4.SignUpScreen());
     },
     PasswordResetScreen.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
+      return _i10.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i5.PasswordResetScreen());
     },
     CategoryDetailScreen.name: (routeData) {
       final args = routeData.argsAs<CategoryDetailScreenArgs>();
-      return _i9.MaterialPageX<dynamic>(
+      return _i10.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i6.CategoryDetailScreen(
               key: args.key, myCategory: args.myCategory));
     },
     AddCardScreen.name: (routeData) {
       final args = routeData.argsAs<AddCardScreenArgs>();
-      return _i9.MaterialPageX<dynamic>(
+      return _i10.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i7.AddCardScreen(
               containerCatId: args.containerCatId, key: args.key));
     },
     CardDetailScreen.name: (routeData) {
       final args = routeData.argsAs<CardDetailScreenArgs>();
-      return _i9.MaterialPageX<dynamic>(
+      return _i10.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i8.CardDetailScreen(myCard: args.myCard, key: args.key));
+    },
+    EmailVertificationLobbyScreen.name: (routeData) {
+      return _i10.MaterialPageX<dynamic>(
+          routeData: routeData, child: _i9.EmailVertificationLobbyScreen());
     }
   };
 
   @override
-  List<_i9.RouteConfig> get routes => [
-        _i9.RouteConfig(SplashView.name, path: '/'),
-        _i9.RouteConfig(TabScreen.name, path: '/tab-screen'),
-        _i9.RouteConfig(LoginScreen.name, path: '/login-screen'),
-        _i9.RouteConfig(SignUpScreen.name, path: '/sign-up-screen'),
-        _i9.RouteConfig(PasswordResetScreen.name,
+  List<_i10.RouteConfig> get routes => [
+        _i10.RouteConfig(SplashView.name, path: '/'),
+        _i10.RouteConfig(TabScreen.name, path: '/tab-screen'),
+        _i10.RouteConfig(LoginScreen.name, path: '/login-screen'),
+        _i10.RouteConfig(SignUpScreen.name, path: '/sign-up-screen'),
+        _i10.RouteConfig(PasswordResetScreen.name,
             path: '/password-reset-screen'),
-        _i9.RouteConfig(CategoryDetailScreen.name,
+        _i10.RouteConfig(CategoryDetailScreen.name,
             path: '/category-detail-screen'),
-        _i9.RouteConfig(AddCardScreen.name, path: '/add-card-screen'),
-        _i9.RouteConfig(CardDetailScreen.name, path: '/card-detail-screen')
+        _i10.RouteConfig(AddCardScreen.name, path: '/add-card-screen'),
+        _i10.RouteConfig(CardDetailScreen.name, path: '/card-detail-screen'),
+        _i10.RouteConfig(EmailVertificationLobbyScreen.name,
+            path: '/email-vertification-lobby-screen')
       ];
 }
 
 /// generated route for
 /// [_i1.SplashView]
-class SplashView extends _i9.PageRouteInfo<void> {
+class SplashView extends _i10.PageRouteInfo<void> {
   const SplashView() : super(SplashView.name, path: '/');
 
   static const String name = 'SplashView';
@@ -99,7 +107,7 @@ class SplashView extends _i9.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.TabScreen]
-class TabScreen extends _i9.PageRouteInfo<void> {
+class TabScreen extends _i10.PageRouteInfo<void> {
   const TabScreen() : super(TabScreen.name, path: '/tab-screen');
 
   static const String name = 'TabScreen';
@@ -107,7 +115,7 @@ class TabScreen extends _i9.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.LoginScreen]
-class LoginScreen extends _i9.PageRouteInfo<void> {
+class LoginScreen extends _i10.PageRouteInfo<void> {
   const LoginScreen() : super(LoginScreen.name, path: '/login-screen');
 
   static const String name = 'LoginScreen';
@@ -115,7 +123,7 @@ class LoginScreen extends _i9.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.SignUpScreen]
-class SignUpScreen extends _i9.PageRouteInfo<void> {
+class SignUpScreen extends _i10.PageRouteInfo<void> {
   const SignUpScreen() : super(SignUpScreen.name, path: '/sign-up-screen');
 
   static const String name = 'SignUpScreen';
@@ -123,7 +131,7 @@ class SignUpScreen extends _i9.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.PasswordResetScreen]
-class PasswordResetScreen extends _i9.PageRouteInfo<void> {
+class PasswordResetScreen extends _i10.PageRouteInfo<void> {
   const PasswordResetScreen()
       : super(PasswordResetScreen.name, path: '/password-reset-screen');
 
@@ -132,8 +140,9 @@ class PasswordResetScreen extends _i9.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.CategoryDetailScreen]
-class CategoryDetailScreen extends _i9.PageRouteInfo<CategoryDetailScreenArgs> {
-  CategoryDetailScreen({_i10.Key? key, required _i11.MyCategory myCategory})
+class CategoryDetailScreen
+    extends _i10.PageRouteInfo<CategoryDetailScreenArgs> {
+  CategoryDetailScreen({_i11.Key? key, required _i12.MyCategory myCategory})
       : super(CategoryDetailScreen.name,
             path: '/category-detail-screen',
             args: CategoryDetailScreenArgs(key: key, myCategory: myCategory));
@@ -144,9 +153,9 @@ class CategoryDetailScreen extends _i9.PageRouteInfo<CategoryDetailScreenArgs> {
 class CategoryDetailScreenArgs {
   const CategoryDetailScreenArgs({this.key, required this.myCategory});
 
-  final _i10.Key? key;
+  final _i11.Key? key;
 
-  final _i11.MyCategory myCategory;
+  final _i12.MyCategory myCategory;
 
   @override
   String toString() {
@@ -156,8 +165,8 @@ class CategoryDetailScreenArgs {
 
 /// generated route for
 /// [_i7.AddCardScreen]
-class AddCardScreen extends _i9.PageRouteInfo<AddCardScreenArgs> {
-  AddCardScreen({required String containerCatId, _i10.Key? key})
+class AddCardScreen extends _i10.PageRouteInfo<AddCardScreenArgs> {
+  AddCardScreen({required String containerCatId, _i11.Key? key})
       : super(AddCardScreen.name,
             path: '/add-card-screen',
             args: AddCardScreenArgs(containerCatId: containerCatId, key: key));
@@ -170,7 +179,7 @@ class AddCardScreenArgs {
 
   final String containerCatId;
 
-  final _i10.Key? key;
+  final _i11.Key? key;
 
   @override
   String toString() {
@@ -180,8 +189,8 @@ class AddCardScreenArgs {
 
 /// generated route for
 /// [_i8.CardDetailScreen]
-class CardDetailScreen extends _i9.PageRouteInfo<CardDetailScreenArgs> {
-  CardDetailScreen({required _i12.MyCard myCard, _i10.Key? key})
+class CardDetailScreen extends _i10.PageRouteInfo<CardDetailScreenArgs> {
+  CardDetailScreen({required _i13.MyCard myCard, _i11.Key? key})
       : super(CardDetailScreen.name,
             path: '/card-detail-screen',
             args: CardDetailScreenArgs(myCard: myCard, key: key));
@@ -192,12 +201,22 @@ class CardDetailScreen extends _i9.PageRouteInfo<CardDetailScreenArgs> {
 class CardDetailScreenArgs {
   const CardDetailScreenArgs({required this.myCard, this.key});
 
-  final _i12.MyCard myCard;
+  final _i13.MyCard myCard;
 
-  final _i10.Key? key;
+  final _i11.Key? key;
 
   @override
   String toString() {
     return 'CardDetailScreenArgs{myCard: $myCard, key: $key}';
   }
+}
+
+/// generated route for
+/// [_i9.EmailVertificationLobbyScreen]
+class EmailVertificationLobbyScreen extends _i10.PageRouteInfo<void> {
+  const EmailVertificationLobbyScreen()
+      : super(EmailVertificationLobbyScreen.name,
+            path: '/email-vertification-lobby-screen');
+
+  static const String name = 'EmailVertificationLobbyScreen';
 }
