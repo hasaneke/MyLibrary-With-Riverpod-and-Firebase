@@ -1,31 +1,43 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:developer';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
 
 final loginScreenController =
-    ChangeNotifierProvider.autoDispose<LoginScreenController>((ref) {
+    StateNotifierProvider.autoDispose<LoginScreenController, LoginState>((ref) {
   return LoginScreenController(ref.read);
 });
 
-class LoginScreenController extends ChangeNotifier {
-  LoginScreenController(this.read) : super();
+class LoginScreenController extends StateNotifier<LoginState> {
   Reader read;
-  bool isSignIn = false;
-  bool isGoogleSigninIn = false;
+
+  LoginScreenController(this.read, [LoginState? state]) : super(InitialState());
+
   Future<void> signInWithEmailAndPassword(
       {required String email, required String password}) async {
-    isSignIn = true;
-    notifyListeners();
+    state = Signin();
     await read(authNotifier.notifier)
         .signInWithEmailAndPassword(email: email, password: password);
-    if (read(authNotifier) == null) {
-      isSignIn = false;
+
+    if (read(authNotifier) != null) {
+      state = AuthSuccess();
+    } else {
+      state = InitialState();
     }
-    notifyListeners();
   }
 
   Future<void> signInWithGoogle() async {
     await read(authNotifier.notifier).signInWithGoogle();
-    if (read(authNotifier) == null) {}
+    if (read(authNotifier) != null) {
+      state = AuthSuccess();
+    }
   }
 }
+
+class LoginState {}
+
+class InitialState extends LoginState {}
+
+class Signin extends LoginState {}
+
+class AuthSuccess extends LoginState {}

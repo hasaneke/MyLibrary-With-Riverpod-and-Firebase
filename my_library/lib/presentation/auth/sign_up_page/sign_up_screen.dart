@@ -11,6 +11,7 @@ class SignUpScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     String email = ' ';
     String password = ' ';
+    GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
@@ -19,7 +20,7 @@ class SignUpScreen extends HookConsumerWidget {
       ),
       body: Center(
         child: Form(
-          key: ref.watch(signUpController).formKey,
+          key: _formKey,
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +67,7 @@ class SignUpScreen extends HookConsumerWidget {
                             return null;
                           },
                           onSaved: (value) {
-                            password = password;
+                            password = value!;
                           },
                         ),
                         TextFormField(
@@ -95,7 +96,6 @@ class SignUpScreen extends HookConsumerWidget {
                     builder: (context, ref, child) {
                       bool isSignin = ref.watch(
                           signUpController.select((value) => value.isSigninIn));
-
                       return isSignin
                           ? const CircularProgressIndicator(
                               color: Colors.black,
@@ -104,12 +104,13 @@ class SignUpScreen extends HookConsumerWidget {
                               style:
                                   Theme.of(context).elevatedButtonTheme.style,
                               onPressed: () async {
+                                _formKey.currentState!.save();
                                 await ref
                                     .read(signUpController.notifier)
                                     .signUp(email: email, password: password);
                                 if (ref.watch(signUpController).isSuccess) {
-                                  AutoRouter.of(context).replace(
-                                      const EmailVertificationLobbyScreen());
+                                  AutoRouter.of(context)
+                                      .replace(const TabScreen());
                                 }
                               },
                               child: Text('Sign Up',
