@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:my_library/presentation/auth/email_vertification_screen/email_vertification_lobby_screen.dart';
 import 'package:my_library/presentation/auth/login/login_screen.dart';
 import 'package:my_library/presentation/auth/reset_password_page/reset_password_screen.dart';
 import 'package:my_library/presentation/auth/sign_up_page/sign_up_screen.dart';
@@ -19,6 +20,7 @@ import 'package:my_library/presentation/splash/splash_view.dart';
     AutoRoute(page: CategoryDetailScreen),
     AutoRoute(page: AddCardScreen),
     AutoRoute(page: CardDetailScreen),
+    AutoRoute(page: EmailVertificationLobbyScreen)
   ],
 )
 class $AppRouter {}
