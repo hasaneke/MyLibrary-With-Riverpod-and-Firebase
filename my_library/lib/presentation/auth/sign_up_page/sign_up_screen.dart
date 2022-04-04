@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/logic/providers/auth_state.dart';
-import 'package:my_library/presentation/auth/sign_up_page/provider/sign_up_controller.dart';
+import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
+import 'package:my_library/presentation/auth/sign_up_page/controller/sign_up_controller.dart';
 
 // ignore: use_key_in_widget_constructors
 class SignUpScreen extends HookConsumerWidget {
@@ -11,8 +11,10 @@ class SignUpScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Colors.black,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         elevation: 0,
+
         // backgroundColor: context.theme.scaffoldBackgroundColor,
       ),
       body: Center(
@@ -34,6 +36,7 @@ class SignUpScreen extends HookConsumerWidget {
                   child: Container(
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
+                        color: Theme.of(context).backgroundColor,
                         border: Border.all(width: 1, color: Colors.grey),
                         borderRadius: BorderRadius.circular(15)),
                     child: Column(
@@ -90,28 +93,34 @@ class SignUpScreen extends HookConsumerWidget {
                   padding: const EdgeInsets.only(top: 10),
                   child: Consumer(
                     builder: (context, ref, child) {
-                      bool isSignUp = ref.watch(isSigningUp);
-                      log('built');
+                      bool isSignUp = ref.watch(signUpController).isSigningUp;
+
                       return isSignUp
                           ? const CircularProgressIndicator(
                               color: Colors.black,
                             )
                           : ElevatedButton(
+                              style:
+                                  Theme.of(context).elevatedButtonTheme.style,
                               onPressed: () async {
                                 await ref
                                     .read(signUpController.notifier)
                                     .signUp(
                                         email: 'hasaneke1000@gmail.com',
                                         password: '6145450fb');
-                                if (ref.read(authStateProvider) != null) {
+                                if (ref.read(authNotifier) != null) {
                                   log('Sign up succesfull');
                                 } else {
                                   log('what happened?');
                                 }
                               },
-                              child: const Text('Sign Up',
+                              child: Text('Sign Up',
                                   style: TextStyle(
-                                      color: Colors.black, fontSize: 20)),
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .color,
+                                      fontSize: 20)),
 
                               // ),
                             );

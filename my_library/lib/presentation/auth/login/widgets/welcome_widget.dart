@@ -13,16 +13,16 @@ class WelcomeWidget extends StatelessWidget {
         Container(
           width: 25,
           height: 1,
-          color: Colors.black,
+          color: Theme.of(context).textTheme.bodyText1!.color,
         ),
         const Text(
-          'Welcome to My Library Auth',
+          'Welcome to My Library',
           style: TextStyle(fontSize: 27),
         ),
         Container(
           width: 25,
           height: 1,
-          color: Colors.black,
+          color: Theme.of(context).textTheme.bodyText1!.color,
         ),
       ],
     );

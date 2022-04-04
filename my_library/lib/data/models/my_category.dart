@@ -1,15 +1,18 @@
 import 'dart:convert';
 
-class MyCategory {
+import 'package:flutter/cupertino.dart';
+
+class MyCategory extends ChangeNotifier {
   String uniqueId;
   String? containerCatId;
   String? title;
-  List<String>? subCategoriesIds;
+  int? colorCode;
+
   MyCategory({
     required this.uniqueId,
     this.containerCatId,
     this.title,
-    this.subCategoriesIds,
+    this.colorCode,
   });
 
   Map<String, dynamic> toMap() {
@@ -17,16 +20,29 @@ class MyCategory {
       'unique_id': uniqueId,
       'container_cat_id': containerCatId,
       'title': title,
-      'sub_categories_ids': subCategoriesIds,
+      'color_code': colorCode,
     };
   }
 
+  factory MyCategory.create({
+    required String uniqueId,
+    String? containerCatId,
+    String? title,
+    int? colorCode,
+  }) {
+    return MyCategory(
+      uniqueId: uniqueId,
+      containerCatId: containerCatId,
+      title: title ?? '',
+      colorCode: colorCode,
+    );
+  }
   factory MyCategory.fromMap(Map<String, dynamic> map) {
     return MyCategory(
-      uniqueId: map['unique_id'] ?? '',
+      uniqueId: map['unique_id'],
       containerCatId: map['container_cat_id'],
-      title: map['title'],
-      subCategoriesIds: List<String>.from(map['sub_categories_ids']),
+      title: map['title'] ?? '',
+      colorCode: map['color_code'],
     );
   }
 
@@ -34,4 +50,18 @@ class MyCategory {
 
   factory MyCategory.fromJson(String source) =>
       MyCategory.fromMap(json.decode(source));
+
+  MyCategory copyWith({
+    String? uniqueId,
+    String? containerCatId,
+    String? title,
+    int? colorCode,
+  }) {
+    return MyCategory(
+      uniqueId: uniqueId ?? this.uniqueId,
+      containerCatId: containerCatId ?? this.containerCatId,
+      title: title ?? this.title,
+      colorCode: colorCode ?? this.colorCode,
+    );
+  }
 }

@@ -1,19 +1,18 @@
-import 'package:authentication/network/auth_service.dart';
-import 'package:authentication/repository/auth_repository.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_library/logic/navigation/route.gr.dart';
+import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
 
-class SplashView extends StatefulWidget {
+class SplashView extends StatefulHookConsumerWidget {
   const SplashView({Key? key}) : super(key: key);
 
   @override
-  State<SplashView> createState() => _SplashViewState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SplashView2State();
 }
 
-class _SplashViewState extends State<SplashView> {
+class _SplashView2State extends ConsumerState<SplashView> {
   @override
   void initState() {
     super.initState();
@@ -33,7 +32,7 @@ class _SplashViewState extends State<SplashView> {
           height: 120,
           width: 120,
           child: Image.asset(
-            'assets/my_library_icon.png',
+            'assets/icon_white.png',
           ),
         ),
       ),
@@ -43,17 +42,13 @@ class _SplashViewState extends State<SplashView> {
   void initApp() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
-    final authRepositry = AuthRepository(authService: AuthService());
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    final user = await authRepositry.getCurrentUser();
+    await ref.read(authNotifier.notifier).getCurrentUser();
+    final user = ref.read(authNotifier);
 
     if (user == null) {
       AutoRouter.of(context).replace(const LoginScreen());
     } else {
-      AutoRouter.of(context).replace(user.emailVerified
-          ? const TabScreen()
-          : const EmailVertificationLobbyScreen());
+      AutoRouter.of(context).replace(const TabScreen());
     }
   }
 }

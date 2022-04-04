@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:authentication/exceptions/auth_exception.dart';
 import 'package:my_library/logic/navigation/route.gr.dart';
-import 'package:my_library/logic/providers/auth_state.dart';
+import 'package:my_library/logic/providers/state_providers/expection_providers.dart';
 import 'package:my_library/presentation/auth/login/widgets/email_password_form.dart';
 import 'package:my_library/presentation/auth/login/widgets/google_button.dart';
 import 'package:my_library/presentation/auth/login/widgets/welcome_widget.dart';
