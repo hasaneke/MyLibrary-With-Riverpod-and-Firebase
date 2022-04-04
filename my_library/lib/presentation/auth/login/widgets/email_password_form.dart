@@ -1,8 +1,9 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_library/logic/navigation/route.gr.dart';
-import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
 import 'package:my_library/presentation/auth/login/controller/login_screen_controller.dart';
 
 class EmailPasswordForm extends HookConsumerWidget {
@@ -11,6 +12,15 @@ class EmailPasswordForm extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _focuseNode1 = FocusNode();
     final _focuseNode2 = FocusNode();
+    String email = ' ';
+    String password = ' ';
+    final _formKey = GlobalKey<FormState>();
+    ref.listen<LoginState>(loginScreenController,
+        (LoginState? previousState, LoginState newState) {
+      if (newState is AuthSuccess) {
+        AutoRouter.of(context).replace(const TabScreen());
+      }
+    });
     return Column(
       children: [
         Container(
@@ -19,41 +29,48 @@ class EmailPasswordForm extends HookConsumerWidget {
               color: Theme.of(context).backgroundColor,
               border: Border.all(width: 1, color: Colors.grey),
               borderRadius: BorderRadius.circular(15)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              TextFormField(
-                focusNode: _focuseNode1,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                    hintText: 'email',
-                    prefixIcon: Icon(Icons.mail,
-                        color: Theme.of(context).textTheme.bodyText1!.color)),
-                validator: (value) {
-                  if (!value!.contains('@') || value.isEmpty) {}
-                  return null;
-                },
-                onSaved: (emailText) {},
-              ),
-              const Divider(),
-              TextFormField(
-                focusNode: _focuseNode2,
-                textInputAction: TextInputAction.done,
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'password',
-                  prefixIcon: Icon(Icons.vpn_key,
-                      color: Theme.of(context).iconTheme.color),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                TextFormField(
+                  focusNode: _focuseNode1,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                      hintText: 'email',
+                      prefixIcon: Icon(Icons.mail,
+                          color: Theme.of(context).textTheme.bodyText1!.color)),
+                  validator: (value) {
+                    if (!value!.contains('@') || value.isEmpty) {}
+                    return null;
+                  },
+                  onSaved: (emailText) {
+                    email = emailText!;
+                  },
                 ),
-                onSaved: (passwordText) {},
-                validator: (value) {
-                  if (value!.isEmpty) {}
-                  return null;
-                },
-              ),
-            ],
+                const Divider(),
+                TextFormField(
+                  focusNode: _focuseNode2,
+                  textInputAction: TextInputAction.done,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: 'password',
+                    prefixIcon: Icon(Icons.vpn_key,
+                        color: Theme.of(context).iconTheme.color),
+                  ),
+                  onSaved: (passwordText) {
+                    password = passwordText!;
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {}
+                    return null;
+                  },
+                ),
+              ],
+            ),
           ),
         ),
         Row(
@@ -74,23 +91,19 @@ class EmailPasswordForm extends HookConsumerWidget {
         ),
         Consumer(
           builder: (context, ref, child) {
-            final signIn = ref.watch(loginScreenController).isSignIn;
-
-            return signIn
+            final state = ref.watch(loginScreenController);
+            return state is Signin
                 ? CircularProgressIndicator(
                     color: Theme.of(context).textTheme.bodyText1!.color,
                   )
                 : ElevatedButton(
                     style: Theme.of(context).elevatedButtonTheme.style,
                     onPressed: () async {
+                      _formKey.currentState!.save();
                       await ref
                           .read(loginScreenController.notifier)
                           .signInWithEmailAndPassword(
-                              email: 'hasaneke1000@gmail.com',
-                              password: '6145450fb');
-                      if (ref.read(authNotifier) != null) {
-                        AutoRouter.of(context).replace(const TabScreen());
-                      } else {}
+                              email: email, password: password);
                     },
                     child: Text(
                       'Sign in',
