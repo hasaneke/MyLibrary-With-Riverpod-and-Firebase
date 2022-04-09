@@ -50,6 +50,8 @@ class MyCardDetailScreenController extends ChangeNotifier {
   }
 
   toggleMark() {
+    read(cardsNotifier.notifier)
+        .updateCard(updatedCard: myCard.copyWith(isMarked: !myCard.isMarked));
     notifyListeners();
   }
 

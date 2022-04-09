@@ -1,8 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/logic/navigation/route.gr.dart';
 import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
+import 'package:my_library/presentation/auth/login/controller/login_screen_controller.dart';
 
 class GoogleButton extends HookConsumerWidget {
   const GoogleButton({Key? key}) : super(key: key);
@@ -13,10 +12,7 @@ class GoogleButton extends HookConsumerWidget {
       height: 60,
       color: Theme.of(context).backgroundColor,
       onPressed: () async {
-        await ref.read(authNotifier.notifier).signInWithGoogle();
-        if (ref.read(authNotifier) != null) {
-          AutoRouter.of(context).replace(const TabScreen());
-        }
+        await ref.read(loginScreenController.notifier).signInWithGoogle();
       },
       child: Row(
         mainAxisSize: MainAxisSize.min,

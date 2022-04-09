@@ -41,9 +41,11 @@ class AuthNotifier extends StateNotifier<User?> {
     } on FirebaseAuthException catch (e) {
       log(e.code);
       _handleError(AuthException(code: e.code));
+      rethrow;
     } on PlatformException catch (e) {
       log(e.code);
       _handleError(AuthException(code: e.code));
+      rethrow;
     }
   }
 

@@ -43,7 +43,7 @@ class MoveDialog extends HookConsumerWidget {
       MyCategory category, Reader read, BuildContext context) {
     return GestureDetector(
         onTap: () {
-          read(myAppBarController).moveTo(category: category);
+          read(myAppBarController).moveTo(id: category.uniqueId);
 
           AutoRouter.of(context).pop();
         },

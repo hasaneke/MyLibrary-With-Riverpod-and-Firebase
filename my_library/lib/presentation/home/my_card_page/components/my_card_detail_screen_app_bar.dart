@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -18,6 +20,7 @@ class MyCardDetailScreenAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isMarked = myCard.isMarked;
     return Container(
       height: AppBar().preferredSize.height,
       width: MediaQuery.of(context).size.width,
@@ -43,13 +46,17 @@ class MyCardDetailScreenAppBar extends StatelessWidget {
           ),
           Row(
             children: [
-              IconButton(
-                  onPressed: () {
-                    controller.toggleMark();
-                  },
-                  icon: Icon(myCard.isMarked
-                      ? Icons.bookmark
-                      : Icons.bookmark_border_outlined)),
+              StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setMarked) {
+                return IconButton(
+                    onPressed: () {
+                      controller.toggleMark();
+                      setMarked(() => isMarked = !isMarked);
+                    },
+                    icon: isMarked
+                        ? const Icon(Icons.bookmark)
+                        : const Icon(Icons.bookmark_border));
+              }),
               PopupMenuButton<String>(
                 enabled: !controller.isImageClicked,
                 onSelected: (choice) async {
@@ -59,6 +66,10 @@ class MyCardDetailScreenAppBar extends StatelessWidget {
                       AutoRouter.of(context).pop();
                       break;
                     case 'edit':
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Not in service right now'),
+                        duration: Duration(seconds: 2),
+                      ));
                       break;
                     case 'move':
                       showDialog(

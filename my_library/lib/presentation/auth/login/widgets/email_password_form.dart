@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,12 +13,7 @@ class EmailPasswordForm extends HookConsumerWidget {
     String email = ' ';
     String password = ' ';
     final _formKey = GlobalKey<FormState>();
-    ref.listen<LoginState>(loginScreenController,
-        (LoginState? previousState, LoginState newState) {
-      if (newState is AuthSuccess) {
-        AutoRouter.of(context).replace(const TabScreen());
-      }
-    });
+
     return Column(
       children: [
         Container(
@@ -44,7 +37,9 @@ class EmailPasswordForm extends HookConsumerWidget {
                       prefixIcon: Icon(Icons.mail,
                           color: Theme.of(context).textTheme.bodyText1!.color)),
                   validator: (value) {
-                    if (!value!.contains('@') || value.isEmpty) {}
+                    if (!value!.contains('@') || value.isEmpty) {
+                      return 'invalid email';
+                    }
                     return null;
                   },
                   onSaved: (emailText) {
@@ -65,7 +60,9 @@ class EmailPasswordForm extends HookConsumerWidget {
                     password = passwordText!;
                   },
                   validator: (value) {
-                    if (value!.isEmpty) {}
+                    if (value!.isEmpty) {
+                      return "empty";
+                    }
                     return null;
                   },
                 ),
@@ -100,10 +97,12 @@ class EmailPasswordForm extends HookConsumerWidget {
                     style: Theme.of(context).elevatedButtonTheme.style,
                     onPressed: () async {
                       _formKey.currentState!.save();
-                      await ref
-                          .read(loginScreenController.notifier)
-                          .signInWithEmailAndPassword(
-                              email: email, password: password);
+                      if (_formKey.currentState!.validate()) {
+                        await ref
+                            .read(loginScreenController.notifier)
+                            .signInWithEmailAndPassword(
+                                email: email, password: password);
+                      }
                     },
                     child: Text(
                       'Sign in',

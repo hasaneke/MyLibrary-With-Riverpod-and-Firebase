@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
 
@@ -18,7 +16,6 @@ class LoginScreenController extends StateNotifier<LoginState> {
     state = Signin();
     await read(authNotifier.notifier)
         .signInWithEmailAndPassword(email: email, password: password);
-
     if (read(authNotifier) != null) {
       state = AuthSuccess();
     } else {
@@ -30,6 +27,8 @@ class LoginScreenController extends StateNotifier<LoginState> {
     await read(authNotifier.notifier).signInWithGoogle();
     if (read(authNotifier) != null) {
       state = AuthSuccess();
+    } else {
+      state = InitialState();
     }
   }
 }

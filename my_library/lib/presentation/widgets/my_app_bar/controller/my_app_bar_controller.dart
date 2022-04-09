@@ -61,14 +61,14 @@ class MyAppbarController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> moveTo({required MyCategory category}) async {
+  Future<void> moveTo({required String id}) async {
     for (var cat in selectedCategories) {
-      read(categoriesNotifier.notifier).updateCategory(
-          myCategory: cat.copyWith(containerCatId: category.uniqueId));
+      read(categoriesNotifier.notifier)
+          .updateCategory(myCategory: cat.copyWith(containerCatId: id));
     }
     for (var card in selectedCards) {
-      read(cardsNotifier.notifier).updateCard(
-          updatedCard: card.copyWith(containerCatId: category.uniqueId));
+      read(cardsNotifier.notifier)
+          .updateCard(updatedCard: card.copyWith(containerCatId: id));
     }
     changeAppbar();
     notifyListeners();
