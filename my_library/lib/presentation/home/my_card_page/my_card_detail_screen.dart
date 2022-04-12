@@ -16,8 +16,8 @@ class CardDetailScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.read(myCardDetailScreenController(myCard));
+    final size = MediaQuery.of(context).size;
 
-    log('wotofok');
     return Scaffold(
       body: Stack(children: [
         GestureDetector(
@@ -67,14 +67,12 @@ class CardDetailScreen extends HookConsumerWidget {
                     child: Center(
                         child: InteractiveViewer(
                       clipBehavior: Clip.none,
-                      child: CachedNetworkImage(
-                        maxHeightDiskCache:
-                            (MediaQuery.of(context).size.height * 0.8).toInt(),
-                        maxWidthDiskCache:
-                            (MediaQuery.of(context).size.width * 0.9).toInt(),
-                        fit: BoxFit.contain,
-                        imageUrl: controller.tappedImage!.imageUrl,
-                      ),
+                      child: SizedBox(
+                          height: size.height * 0.6,
+                          width: size.width * 0.7,
+                          child: CachedNetworkImage(
+                            imageUrl: controller.tappedImage!.imageUrl,
+                          )),
                     )),
                   )
                 : Container();

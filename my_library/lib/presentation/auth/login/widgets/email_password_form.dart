@@ -89,7 +89,7 @@ class EmailPasswordForm extends HookConsumerWidget {
         Consumer(
           builder: (context, ref, child) {
             final state = ref.watch(loginScreenController);
-            return state is Signin
+            return state is EmailPasswordSignin
                 ? CircularProgressIndicator(
                     color: Theme.of(context).textTheme.bodyText1!.color,
                   )
@@ -105,7 +105,7 @@ class EmailPasswordForm extends HookConsumerWidget {
                       }
                     },
                     child: Text(
-                      'Sign in',
+                      'Login',
                       style: TextStyle(
                           color: Theme.of(context).textTheme.bodyText1!.color,
                           fontSize: 22),

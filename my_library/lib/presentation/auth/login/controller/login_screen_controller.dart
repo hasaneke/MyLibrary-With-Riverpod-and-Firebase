@@ -13,7 +13,7 @@ class LoginScreenController extends StateNotifier<LoginState> {
 
   Future<void> signInWithEmailAndPassword(
       {required String email, required String password}) async {
-    state = Signin();
+    state = EmailPasswordSignin();
     await read(authNotifier.notifier)
         .signInWithEmailAndPassword(email: email, password: password);
     if (read(authNotifier) != null) {
@@ -24,6 +24,7 @@ class LoginScreenController extends StateNotifier<LoginState> {
   }
 
   Future<void> signInWithGoogle() async {
+    state = GoogleSignin();
     await read(authNotifier.notifier).signInWithGoogle();
     if (read(authNotifier) != null) {
       state = AuthSuccess();
@@ -37,6 +38,8 @@ class LoginState {}
 
 class InitialState extends LoginState {}
 
-class Signin extends LoginState {}
+class EmailPasswordSignin extends LoginState {}
+
+class GoogleSignin extends LoginState {}
 
 class AuthSuccess extends LoginState {}

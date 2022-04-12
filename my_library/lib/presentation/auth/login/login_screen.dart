@@ -28,17 +28,28 @@ class LoginScreen extends HookConsumerWidget {
     });
     return Scaffold(
         extendBodyBehindAppBar: true,
-        body: SingleChildScrollView(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: const [
-                Expanded(flex: 3, child: WelcomeWidget()),
-                Expanded(flex: 7, child: AuthWidget()),
-              ],
-            ),
-          ),
+        body: Consumer(
+          builder: (context, ref, child) {
+            final state = ref.watch(loginScreenController);
+            if (state is GoogleSignin) {
+              return const Center(
+                child: CircularProgressIndicator(color: Colors.black),
+              );
+            } else {
+              return SingleChildScrollView(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: const [
+                      Expanded(flex: 3, child: WelcomeWidget()),
+                      Expanded(flex: 7, child: AuthWidget()),
+                    ],
+                  ),
+                ),
+              );
+            }
+          },
         ));
   }
 }
