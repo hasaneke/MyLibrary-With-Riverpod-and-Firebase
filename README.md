@@ -7,7 +7,7 @@
   - Firebase Storage
   - Riverpod
   - AutoRoute
-[![Presentation video](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://youtu.be/lY3WsQefTK0)
+[![Presentation video](https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/2560px-YouTube_full-color_icon_%282017%29.svg.png)](https://youtu.be/lY3WsQefTK0)
 <p align="center">
   <img src="https://user-images.githubusercontent.com/67066911/167431183-81cbe032-ad0d-4eda-9dd7-4dae8b9b42a7.png" width="250" title="hover text">
   <img src="https://user-images.githubusercontent.com/67066911/167431194-be7d492d-214f-4ed7-936b-f4e81277e573.png" width="250" alt="accessibility text">
