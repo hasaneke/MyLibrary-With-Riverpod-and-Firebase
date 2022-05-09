@@ -14,12 +14,6 @@ import 'package:my_library/logic/providers/state_providers/data_providers.dart';
 import 'package:my_library/logic/providers/state_providers/expection_providers.dart';
 import 'package:riverpod/riverpod.dart';
 
-final dataStoreRepository =
-    StateProvider.autoDispose<DataStoreRepository>((ref) {
-  final dataService = DataService();
-  dataService.initService(ref.read(authNotifier)!.uid);
-  return DataStoreRepository(dataService: dataService);
-});
 final categoriesNotifier = StateNotifierProvider.autoDispose<CategoriesNotifier,
     AsyncValue<List<MyCategory>>>((ref) {
   return CategoriesNotifier(ref.read);

@@ -6,6 +6,7 @@ import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/data/repository/storage/storage_repository.dart';
 import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
 import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
+import 'package:my_library/logic/providers/state_providers/data_providers.dart';
 import 'package:my_library/logic/providers/state_providers/expection_providers.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:storage_service/network/storage_service.dart';
@@ -60,9 +61,13 @@ class CardsNotifier extends StateNotifier<AsyncValue<List<MyCard>>> {
     }
   }
 
-  Future<void> updateCard({required MyCard updatedCard}) async {
+  Future<void> updateCard(
+      {required MyCard updatedCard, List<File>? imageFiles}) async {
     try {
-      await read(dataStoreRepository).updateCard(myCard: updatedCard);
+      List<String> imageUrls = await read(storageRepository)
+          .uploadFilesAndGetTheUrls(files: imageFiles!);
+      await read(dataStoreRepository)
+          .updateCard(myCard: updatedCard.copyWith(imageUrls: imageUrls));
       state = state.whenData((cards) => cards.map((card) {
             if (card.id == updatedCard.id) {
               return updatedCard;
@@ -72,6 +77,7 @@ class CardsNotifier extends StateNotifier<AsyncValue<List<MyCard>>> {
     } on Exception catch (e) {
       read(dataExceptionProvider.notifier).state =
           DataException(message: e.toString());
+      rethrow;
     }
   }
 

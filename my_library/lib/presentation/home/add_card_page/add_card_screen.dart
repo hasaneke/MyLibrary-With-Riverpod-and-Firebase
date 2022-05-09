@@ -48,7 +48,7 @@ class AddCardScreen extends HookConsumerWidget {
                                 Theme.of(context).appBarTheme.foregroundColor,
                             elevation: 0,
                             title: Text(
-                              'Add Card',
+                              'Edit Card',
                               style: TextStyle(
                                   color: Theme.of(context)
                                       .textTheme

@@ -46,12 +46,12 @@ class AddCardScreenController extends ChangeNotifier {
           maxHeight: 800,
           maxWidth: 400);
       pickedImages = [...pickedImages, File(pickedImage!.path)];
-      notifyListeners();
     } on PlatformException catch (e) {
       log(e.code);
     } catch (e) {
       log(e.toString());
     }
+    notifyListeners();
   }
 
   Future<void> pickImageWithGallery() async {

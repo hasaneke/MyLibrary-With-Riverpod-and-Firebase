@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:my_library/core/constants/pop_up_menu_constants.dart';
 import 'package:my_library/data/models/my_card.dart';
+import 'package:my_library/logic/navigation/route.gr.dart';
 import 'package:my_library/presentation/home/my_card_page/controller/my_card_detail_screen_controller.dart';
 import 'package:my_library/presentation/widgets/move_dialog/move_dialog.dart';
 
@@ -66,10 +67,12 @@ class MyCardDetailScreenAppBar extends StatelessWidget {
                       AutoRouter.of(context).pop();
                       break;
                     case 'edit':
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Not in service right now'),
-                        duration: Duration(seconds: 2),
-                      ));
+                      // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      //   content: Text('Not in service right now'),
+                      //   duration: Duration(seconds: 2),
+                      // ));
+                      AutoRouter.of(context)
+                          .push(EditCardScreen(myCard: myCard));
                       break;
                     case 'move':
                       showDialog(
