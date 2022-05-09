@@ -1,10 +1,13 @@
 # My Library 2
  My Library allows users to create nested categories. Every category have cards which contains notes, images or files.
  
- Services and packages:
+ Imprtant services and packages:
   - Firebase Firestore
   - Firebase Authentication
   - Firebase Storage
+  - Riverpod
+  - AutoRoute
+  - 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/67066911/167431183-81cbe032-ad0d-4eda-9dd7-4dae8b9b42a7.png" width="250" title="hover text">
   <img src="https://user-images.githubusercontent.com/67066911/167431194-be7d492d-214f-4ed7-936b-f4e81277e573.png" width="250" alt="accessibility text">
