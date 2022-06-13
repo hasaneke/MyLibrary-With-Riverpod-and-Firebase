@@ -44,8 +44,11 @@ dependencies:
   hooks_riverpod: ^1.0.3
   image_picker: ^0.8.4+11
   intl: ^0.17.0
+<<<<<<< Updated upstream
   storage_service:
     path: ./packages/firebase_storage_service
+=======
+>>>>>>> Stashed changes
   uuid: ^3.0.6
 
 dev_dependencies:
