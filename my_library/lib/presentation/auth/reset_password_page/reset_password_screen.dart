@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/presentation/auth/reset_password_page/provider/reset_password_controller.dart';
+import 'package:my_library/presentation/auth/reset_password_page/controller/reset_password_controller.dart';
 
 class PasswordResetScreen extends HookConsumerWidget {
   const PasswordResetScreen({Key? key}) : super(key: key);

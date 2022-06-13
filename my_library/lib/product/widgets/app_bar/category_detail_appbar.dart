@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_library/core/constants/pop_up_menu_constants.dart';
 import 'package:my_library/data/models/my_category.dart';
-import 'package:my_library/presentation/home/my_category_detail_page/components/app_bar/controller/category_detail_appbar_controller.dart';
 import 'package:my_library/presentation/widgets/add_category_dialog.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:my_library/presentation/widgets/my_app_bar/my_app_bar.dart';
+import 'package:my_library/product/widgets/app_bar/controller/category_detail_appbar_controller.dart';
 
 class CategoryDetailAppbar extends HookConsumerWidget {
   final MyCategory myCategory;

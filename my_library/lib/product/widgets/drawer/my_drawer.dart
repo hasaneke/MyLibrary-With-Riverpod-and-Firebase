@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_library/logic/navigation/route.gr.dart';
-import 'package:my_library/presentation/home/tab_bar_page/home_page/widgets/drawer/controller/my_drawer_controller.dart';
+import 'package:my_library/product/widgets/drawer/controller/my_drawer_controller.dart';
 
 class MyDrawer extends HookConsumerWidget {
   const MyDrawer({Key? key}) : super(key: key);

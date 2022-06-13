@@ -5,9 +5,10 @@ import 'package:authentication/exceptions/auth_exception.dart';
 import 'package:my_library/logic/navigation/route.gr.dart';
 import 'package:my_library/logic/providers/state_providers/expection_providers.dart';
 import 'package:my_library/presentation/auth/login/controller/login_screen_controller.dart';
-import 'package:my_library/presentation/auth/login/widgets/email_password_form.dart';
-import 'package:my_library/presentation/auth/login/widgets/google_button.dart';
-import 'package:my_library/presentation/auth/login/widgets/welcome_widget.dart';
+import 'package:my_library/product/widgets/email_password_form.dart';
+
+import '../../../product/widgets/google_button.dart';
+import '../../../product/widgets/welcome_widget.dart';
 
 // ignore: use_key_in_widget_constructors
 class LoginScreen extends HookConsumerWidget {

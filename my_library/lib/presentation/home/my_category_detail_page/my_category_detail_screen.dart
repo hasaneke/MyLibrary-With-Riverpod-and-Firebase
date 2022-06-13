@@ -5,10 +5,10 @@ import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/data/models/my_category.dart';
 import 'package:my_library/logic/navigation/route.gr.dart';
 import 'package:my_library/logic/providers/state_providers/data_providers.dart';
-import 'package:my_library/presentation/home/my_category_detail_page/components/categories_body/cateogories_body.dart';
+import 'package:my_library/product/widgets/cateogories_body.dart';
 import 'package:my_library/presentation/widgets/my_card_item.dart';
 
-import 'components/app_bar/category_detail_appbar.dart';
+import '../../../product/widgets/app_bar/category_detail_appbar.dart';
 
 // ignore: use_key_in_widget_constructors, must_be_immutable
 class CategoryDetailScreen extends HookConsumerWidget {
