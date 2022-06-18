@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/core/constants/themes.dart';
-
-import 'logic/navigation/route.gr.dart';
+import 'package:my_library/product/navigator/route.gr.dart';
+import 'package:my_library/product/widgets/move_dialog/constants/themes.dart';
 
 void main() async {
   final _appRouter = AppRouter();

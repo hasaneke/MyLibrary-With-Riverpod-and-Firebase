@@ -4,9 +4,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/core/constants/custom_colors.dart';
-import 'package:my_library/data/models/my_category.dart';
 import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
+import 'package:my_library/product/models/my_category.dart';
+import 'package:my_library/product/widgets/move_dialog/constants/custom_colors.dart';
 import 'package:uuid/uuid.dart';
 
 class AddCategoryDialog extends HookConsumerWidget {

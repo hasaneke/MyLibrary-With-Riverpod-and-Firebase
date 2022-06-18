@@ -1,13 +1,11 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:my_library/core/constants/pop_up_menu_constants.dart';
-import 'package:my_library/data/models/my_card.dart';
-import 'package:my_library/logic/navigation/route.gr.dart';
 import 'package:my_library/presentation/home/my_card_page/controller/my_card_detail_screen_controller.dart';
 import 'package:my_library/presentation/widgets/move_dialog/move_dialog.dart';
+import 'package:my_library/product/models/my_card.dart';
+import 'package:my_library/product/navigator/route.gr.dart';
+import 'package:my_library/product/widgets/move_dialog/constants/pop_up_menu_constants.dart';
 
 class MyCardDetailScreenAppBar extends StatelessWidget {
   const MyCardDetailScreenAppBar({

@@ -1,7 +1,6 @@
 import 'package:authentication/network/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // ignore: unused_import
-import 'package:my_library/core/models/user.dart';
 
 class AuthRepository implements IAuthService {
   final AuthService authService;

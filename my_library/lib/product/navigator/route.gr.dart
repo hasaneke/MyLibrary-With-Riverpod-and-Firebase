@@ -13,8 +13,8 @@
 import 'package:auto_route/auto_route.dart' as _i11;
 import 'package:flutter/material.dart' as _i12;
 
-import '../../data/models/my_card.dart' as _i14;
-import '../../data/models/my_category.dart' as _i13;
+import '../../product/models/my_card.dart' as _i14;
+import '../../product/models/my_category.dart' as _i13;
 import '../../presentation/auth/email_vertification_screen/email_vertification_lobby_screen.dart'
     as _i9;
 import '../../presentation/auth/login/login_screen.dart' as _i3;

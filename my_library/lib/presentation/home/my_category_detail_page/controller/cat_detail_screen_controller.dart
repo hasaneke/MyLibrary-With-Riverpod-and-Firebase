@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/data/models/my_card.dart';
-import 'package:my_library/data/models/my_category.dart';
 import 'package:my_library/logic/providers/state_providers/data_providers.dart';
+import 'package:my_library/product/models/my_card.dart';
+import 'package:my_library/product/models/my_category.dart';
 
 final myCardDetailScreenController = ChangeNotifierProvider.autoDispose
     .family<CategoryDetailScreenController, MyCategory>((ref, myCat) {

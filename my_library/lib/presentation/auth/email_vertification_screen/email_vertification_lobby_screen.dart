@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:my_library/logic/navigation/route.gr.dart';
+
+import '../../../product/navigator/route.gr.dart';
 
 // ignore: use_key_in_widget_constructors
 class EmailVertificationLobbyScreen extends StatelessWidget {

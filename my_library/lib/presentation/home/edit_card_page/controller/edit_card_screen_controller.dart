@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/logic/providers/notifiers/cards_notifier.dart';
+import 'package:my_library/product/models/my_card.dart';
 
 enum EditStatus { initial, uploading, failed, success }
 

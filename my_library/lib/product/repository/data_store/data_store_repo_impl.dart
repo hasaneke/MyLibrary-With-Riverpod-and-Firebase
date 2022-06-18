@@ -1,5 +1,5 @@
-import 'package:my_library/data/models/my_card.dart';
-import 'package:my_library/data/models/my_category.dart';
+import 'package:my_library/product/models/my_card.dart';
+import 'package:my_library/product/models/my_category.dart';
 
 abstract class IDataStoreRepository {
   /* MY CATEGORY OPERATIONS */

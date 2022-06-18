@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/logic/providers/notifiers/cards_notifier.dart';
+import 'package:my_library/product/models/my_card.dart';
 
 final myCardDetailScreenController = ChangeNotifierProvider.autoDispose
     .family<MyCardDetailScreenController, MyCard>((ref, myCard) {

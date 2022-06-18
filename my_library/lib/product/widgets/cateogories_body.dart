@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_library/data/models/my_category.dart';
 import 'package:my_library/presentation/widgets/my_category_gridview.dart';
+import 'package:my_library/product/models/my_category.dart';
 
 class CategoriesBody extends StatefulWidget {
   const CategoriesBody({

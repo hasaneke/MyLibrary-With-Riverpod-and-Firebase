@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/presentation/home/my_card_page/controller/my_card_detail_screen_controller.dart';
+import 'package:my_library/product/models/my_card.dart';
 
 class ImageWidget extends StatelessWidget {
   const ImageWidget({

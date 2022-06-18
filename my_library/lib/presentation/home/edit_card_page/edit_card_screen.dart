@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/data/models/my_card.dart';
 import 'package:my_library/presentation/home/edit_card_page/controller/edit_card_screen_controller.dart';
+import 'package:my_library/product/models/my_card.dart';
 
 class EditCardScreen extends HookConsumerWidget {
   MyCard myCard;

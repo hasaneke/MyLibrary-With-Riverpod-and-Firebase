@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/logic/navigation/route.gr.dart';
 import 'package:my_library/presentation/auth/sign_up_page/controller/sign_up_controller.dart';
+import 'package:my_library/product/navigator/route.gr.dart';
 
 // ignore: use_key_in_widget_constructors
 class SignUpScreen extends HookConsumerWidget {

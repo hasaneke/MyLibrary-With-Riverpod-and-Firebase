@@ -2,12 +2,11 @@ import 'dart:async';
 import 'dart:io';
 import 'package:data_service/exceptions/data_exception.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/data/models/my_card.dart';
-import 'package:my_library/data/repository/storage/storage_repository.dart';
 import 'package:my_library/logic/providers/notifiers/auth_notifier.dart';
-import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
 import 'package:my_library/logic/providers/state_providers/data_providers.dart';
 import 'package:my_library/logic/providers/state_providers/expection_providers.dart';
+import 'package:my_library/product/models/my_card.dart';
+import 'package:my_library/product/repository/storage/storage_repository.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:storage_service/network/storage_service.dart';
 

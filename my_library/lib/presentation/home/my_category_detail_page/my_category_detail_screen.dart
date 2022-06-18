@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/data/models/my_card.dart';
-import 'package:my_library/data/models/my_category.dart';
-import 'package:my_library/logic/navigation/route.gr.dart';
 import 'package:my_library/logic/providers/state_providers/data_providers.dart';
+import 'package:my_library/product/models/my_card.dart';
+import 'package:my_library/product/models/my_category.dart';
+import 'package:my_library/product/navigator/route.gr.dart';
 import 'package:my_library/product/widgets/cateogories_body.dart';
 import 'package:my_library/presentation/widgets/my_card_item.dart';
 

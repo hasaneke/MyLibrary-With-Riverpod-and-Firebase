@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:authentication/exceptions/auth_exception.dart';
-import 'package:my_library/logic/navigation/route.gr.dart';
 import 'package:my_library/logic/providers/state_providers/expection_providers.dart';
 import 'package:my_library/presentation/auth/login/controller/login_screen_controller.dart';
+import 'package:my_library/product/navigator/route.gr.dart';
 import 'package:my_library/product/widgets/email_password_form.dart';
 
 import '../../../product/widgets/google_button.dart';

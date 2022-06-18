@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_library/data/models/my_category.dart';
 import 'package:my_library/logic/providers/notifiers/categories_notifier.dart';
+import 'package:my_library/product/models/my_category.dart';
 
 class CategoryDetailAppBarController extends ChangeNotifier {
   Reader read;

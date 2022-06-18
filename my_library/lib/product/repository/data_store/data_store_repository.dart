@@ -1,7 +1,7 @@
 import 'package:data_service/network/firestore_service.dart';
-import 'package:my_library/data/models/my_card.dart';
-import 'package:my_library/data/models/my_category.dart';
-import 'package:my_library/data/repository/data_store/data_store_repo_impl.dart';
+import 'package:my_library/product/models/my_card.dart';
+import 'package:my_library/product/models/my_category.dart';
+import 'package:my_library/product/repository/data_store/data_store_repo_impl.dart';
 
 class DataStoreRepository implements IDataStoreRepository {
   DataService dataService;
